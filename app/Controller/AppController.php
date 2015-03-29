@@ -31,4 +31,12 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+    public function beforeFilter() {
+        $environments = array('DEV/CMAD'=>'DEV/CMAD','INT/CMAQ'=>'INT/CMAQ', 'UAT/QUA'=>'UAT/QUA','PREPROD/TST'=>'PREPROD/TST', 'PROD'=>'PROD');
+        $accessTypes = array('Personal'=>'Personal', 'Common'=>'Common');
+        $accessPrivileges = array('Read'=>'Read', 'R/W'=>'R/W', 'R/W/X'=>'R/W/X');
+        $sysTypes = array('Application'=>'Application', 'Database'=>'Database');
+        $this->set(compact('environments', 'accessTypes', 'accessPrivileges', 'sysTypes'));
+    }
+    /*public $helpers = array('Form' => array('className' => 'BootstrapForm'));*/
 }

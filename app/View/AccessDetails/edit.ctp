@@ -1,28 +1,49 @@
-<div class="accessDetails form">
-<?php echo $this->Form->create('AccessDetail'); ?>
-	<fieldset>
-		<legend><?php echo __('Edit Access Detail'); ?></legend>
-	<?php
-		echo $this->Form->input('accessid');
-		echo $this->Form->input('uniqueid');
-		echo $this->Form->input('fname');
-		echo $this->Form->input('lname');
-		echo $this->Form->input('systype');
-		echo $this->Form->input('sysname');
-		echo $this->Form->input('env');
-		echo $this->Form->input('accresp');
-		echo $this->Form->input('acctype');
-		echo $this->Form->input('accprivilege');
-		echo $this->Form->input('accidassigned');
-	?>
-	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-
-		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('AccessDetail.accessid')), array(), __('Are you sure you want to delete # %s?', $this->Form->value('AccessDetail.accessid'))); ?></li>
-		<li><?php echo $this->Html->link(__('List Access Details'), array('action' => 'index')); ?></li>
-	</ul>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <b>Edit Access Detail</b>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-12">
+            <?php echo $this->Form->create('AccessDetail'); ?>
+            <?php echo $this->Form->input('accessid');?>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <?php echo $this->Form->input('uniqueid', array('label' => 'Unique ID', 'class'=>'form-control'));?>
+                </div>
+                <div class="form-group">
+                    <?php echo $this->Form->input('fname', array('label' => 'First Name', 'class'=>'form-control'));?>
+                </div>
+                <div class="form-group">
+                    <?php echo $this->Form->input('lname', array('label' => 'Last Name', 'class'=>'form-control'));?>
+                </div>
+                <div class="form-group">
+                    <?php echo $this->Form->input('systype', array('label' => 'System Type', 'class'=>'form-control', 'options'=>$sysTypes));?>
+                </div>
+                <div class="form-group">
+                    <?php echo $this->Form->input('sysname', array('label' => 'System Name / IP Address', 'class'=>'form-control'));?>
+                </div>
+            </div>
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <?php echo $this->Form->input('env', array('label' => 'Environment','class'=>'form-control','options'=>$environments));?>
+                </div>
+                <div class="form-group">
+                    <?php echo $this->Form->input('accresp', array('label' => 'Access Responsible', 'class'=>'form-control'));?>
+                </div>
+                <div class="form-group">
+                    <?php echo $this->Form->input('acctype', array('label' => 'Access Type', 'class'=>'form-control', 'options'=>$accessTypes));?>
+                </div>
+                <div class="form-group">
+                    <?php echo $this->Form->input('accprivilege', array('label' => 'Privilege Type', 'class'=>'form-control', 'options'=>$accessPrivileges));?>
+                </div>
+                <div class="form-group">
+                    <?php echo $this->Form->input('accidassigned', array('label' => 'Assigned Access ID', 'class'=>'form-control'));?>
+                </div>
+                <br>
+                <?php echo $this->Form->end(array('label'=>'Save', 'class'=>'btn btn-success pull-right', 'id'=>'editAccess')); ?>
+            </div>
+        </div>
+    </div>
 </div>
