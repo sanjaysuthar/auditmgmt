@@ -25,6 +25,44 @@ class AccessDetailsController extends AppController {
 		$this->set('accessDetails', $this->Paginator->paginate());
 	}
 
+    /**
+     * Upload Excel method
+     * @return void
+     */
+    public function uploadexcel() {
+        $excelfile = $this->request->data['AccessDetail']['uploadexcelfile']['tmp_name'];
+        $excelData = new Spreadsheet_Excel_Reader($excelfile, true);
+        $accessDetailsModel = array();
+        //starting with 2, 1 is header skipping it, all index for excel starts with 1
+        $rowindex = 2;
+        $arrindex = 0;
+        while($excelData->value($rowindex, 1) != '') {
+            //accessid is auto increment
+            $accessDetailsModel['AccessDetail'][$arrindex]['uniqueid'] = $excelData->value($rowindex, 1);
+            $accessDetailsModel['AccessDetail'][$arrindex]['fname'] = $excelData->value($rowindex, 2);
+            $accessDetailsModel['AccessDetail'][$arrindex]['lname'] = $excelData->value($rowindex, 3);
+            $accessDetailsModel['AccessDetail'][$arrindex]['systype'] = $excelData->value($rowindex, 4);
+            $accessDetailsModel['AccessDetail'][$arrindex]['sysname'] = $excelData->value($rowindex, 5);
+            $accessDetailsModel['AccessDetail'][$arrindex]['env'] = $excelData->value($rowindex, 6);
+            $accessDetailsModel['AccessDetail'][$arrindex]['accresp'] = $excelData->value($rowindex, 7);
+            $accessDetailsModel['AccessDetail'][$arrindex]['acctype'] = $excelData->value($rowindex, 8);
+            $accessDetailsModel['AccessDetail'][$arrindex]['accprivilege'] = $excelData->value($rowindex, 9);
+            $accessDetailsModel['AccessDetail'][$arrindex++]['accidassigned'] = $excelData->value($rowindex++, 10);
+        }
+        //debug($accessDetailsModel);
+        foreach ($accessDetailsModel['AccessDetail'] as $value ) {
+            $accessDetailEntity['AccessDetail'] = $value;
+            $this->AccessDetail->create();
+            if ($this->AccessDetail->save($accessDetailEntity)) {
+                $this->Session->setFlash(__('Successfully uploaded from excel.'));
+            } else {
+                $this->Session->setFlash(__('The access detail could not be saved. Please, try again.'));
+                break;
+            }
+        }
+        return $this->redirect(array('action' => 'index'));
+    }
+
 /**
  * view method
  *

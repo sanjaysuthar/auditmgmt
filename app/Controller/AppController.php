@@ -20,6 +20,7 @@
  */
 
 App::uses('Controller', 'Controller');
+App::import('Vendor', 'php-excel-reader/excel_reader2');
 
 /**
  * Application Controller
