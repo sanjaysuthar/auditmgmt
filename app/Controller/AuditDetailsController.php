@@ -38,6 +38,10 @@ class AuditDetailsController extends AppController {
 		}
 		$options = array('conditions' => array('AuditDetail.' . $this->AuditDetail->primaryKey => $id));
 		$this->set('auditDetail', $this->AuditDetail->find('first', $options));
+
+        $d = $this->AuditDetail->find('first', $options);
+
+        debug($d['AuditDetail']['evidence2']['type']);
 	}
 
 /**
@@ -45,15 +49,33 @@ class AuditDetailsController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function add($accessid = null) {
+        //Setting Access Id on Audit Page
+        $this->loadModel('AccessDetail');
+        if (!$this->AccessDetail->exists($accessid)) {
+            throw new NotFoundException(__('Invalid access detail'));
+        } else {
+            $this->request->data['AuditDetail']['accessid'] = $accessid;
+        }
+
 		if ($this->request->is('post')) {
-			$this->AuditDetail->create();
+            //Mapping multiple file uploads in AuditDetail entity
+            debug($this->request->data);
+            /*$this->request->data['AuditDetail']['evidence1'] = $this->request->data['Evidences'][0];
+            $this->request->data['AuditDetail']['evidence2'] = $this->request->data['Evidences'][1];
+            debug($this->request->data);
+            $fileData = fread(fopen($this->request->data['AuditDetail']['evidence2']['tmp_name'], "r"),
+                $this->request->data['AuditDetail']['evidence2']['size']);
+            $this->request->data['AuditDetail']['evidence2'] = $fileData;
+            debug($this->request->data);*/
+
+			/*$this->AuditDetail->create();
 			if ($this->AuditDetail->save($this->request->data)) {
 				$this->Session->setFlash(__('The audit detail has been saved.'));
-				return $this->redirect(array('action' => 'index'));
+			//	return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The audit detail could not be saved. Please, try again.'));
-			}
+			}*/
 		}
 	}
 

@@ -31,10 +31,12 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		echo $this->Html->css('bootstrap');
         echo $this->Html->css('dashboard');
         echo $this->Html->css('cakephp-inherited');
+        echo $this->Html->css('fileinput');
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
 	?>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </head>
 <body>
 <!-- Main Header -->
@@ -97,9 +99,10 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
     <script src="/auditmgmt/js/bootstrap.min.js"></script>
     <script src="/auditmgmt/js/docs.min.js"></script>
+    <script src="/auditmgmt/js/fileinput.js"></script>
     <script src="/auditmgmt/js/auditmgmt.js"></script>
     <!-- Toggle menu script for sidebar -->
     <script>
