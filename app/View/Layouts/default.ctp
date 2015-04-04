@@ -73,7 +73,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
                 <li><a href="/auditmgmt/AccessDetails">Access Details</a></li><!--class="sidebar-brand"-->
-                <li><a href="#">Audits</a></li>
+                <li><a href="/auditmgmt/AuditDetails">Audits</a></li>
                 <li><a href="#">Analytics</a></li>
                 <li><a href="#">Export</a></li>
             </ul>
