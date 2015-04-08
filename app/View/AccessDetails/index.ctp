@@ -5,6 +5,9 @@
         <a href="AccessDetails/add" class="btn btn-success btn-sm pull-right" style="margin-top: -5px;">
             <span class="glyphicon glyphicon-plus"></span> Add
         </a>
+        <a href="AccessDetails/autosuggest" class="btn btn-info btn-sm pull-right" style="margin-top: -5px; margin-right: 10px;">
+            <span class="glyphicon glyphicon-tasks"></span> Auto Suggest for Audit
+        </a>
         <!-- / Panel Header -->
     </div>
     <div class="panel-body">

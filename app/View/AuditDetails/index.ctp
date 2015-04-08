@@ -27,7 +27,11 @@
                     <td><?php echo h($auditDetail['AuditDetail']['auditid']); ?>&nbsp;</td>
                     <td><?php echo h($auditDetail['AuditDetail']['accessid']); ?>&nbsp;</td>
                     <td><?php echo h($auditDetail['AuditDetail']['status']); ?>&nbsp;</td>
-                    <td><?php echo h($auditDetail['AuditDetail']['month']); ?>&nbsp;</td>
+                    <td><?php
+                            $dateObj   = DateTime::createFromFormat('!m', $auditDetail['AuditDetail']['month']);
+                            $monthName = $dateObj->format('M'); //F for full format
+                            echo h($monthName); ?>&nbsp;
+                    </td>
                     <td><?php echo h($auditDetail['AuditDetail']['year']); ?>&nbsp;</td>
                     <td><?php echo h($auditDetail['AuditDetail']['auditor']); ?>&nbsp;</td>
                     <td><?php echo h($auditDetail['AuditDetail']['comments']); ?>&nbsp;</td>

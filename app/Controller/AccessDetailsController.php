@@ -139,4 +139,32 @@ class AccessDetailsController extends AppController {
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
+
+    /**
+     * auto suggest audits to be performed, based on access which are not audited from longer time
+     */
+    public function autosuggest() {
+        $this->Paginator->settings = array(
+            'conditions' => array('1'=>'1=1'
+            ),
+            'fields' => array('AccessDetail.*','lad.latest_audit_month','lad.latest_audit_year'),
+            'joins'      => array(
+                array(
+                    'table' => 'LATEST_AUDIT_DETAILS',
+                    'alias' => 'lad',
+                    'type' => 'LEFT',
+                    'foreignKey' => false,
+                    'conditions'=> array('AccessDetail.accessid = lad.accessid')
+                ),
+            ),
+            'order' => array(
+                'lad.latest_audit_year'=>'ASC',
+                'lad.latest_audit_month'=>'ASC'
+            ),
+            'limit' =>20
+        );
+        $accessDetails = $this->Paginator->paginate('AccessDetail', array(), array('lad.latest_audit_year', 'lad.latest_audit_month'));
+        //debug($accessDetails);
+        $this->set(compact('accessDetails'));
+    }
 }

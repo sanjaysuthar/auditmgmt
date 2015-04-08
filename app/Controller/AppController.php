@@ -38,8 +38,8 @@ class AppController extends Controller {
         $accessPrivileges = array('Read'=>'Read', 'R/W'=>'R/W', 'R/W/X'=>'R/W/X');
         $sysTypes = array('Application'=>'Application', 'Database'=>'Database');
         $auditStatus = array('Success'=>'Success', 'Failed'=>'Failed');
-        $auditMonth = array('Jan'=>'Jan', 'Feb'=>'Feb', 'March'=>'March', 'April'=>'April', 'May'=>'May', 'June'=>'June', 'July'=>'July', 'Aug'=>'Aug', 'Sep'=>'Sep', 'Oct'=>'Oct', 'Nov'=>'Nov', 'Dec'=>'Dec');
-        $auditYear = array('2014'=>'2014', '2015'=>'2015', '2016'=>'2016', '2017'=>'2017');
+        $auditMonth = array('1'=>'Jan', '2'=>'Feb', '3'=>'March', '4'=>'April', '5'=>'May', '6'=>'June', '7'=>'July', '8'=>'Aug', '9'=>'Sep', '10'=>'Oct', '11'=>'Nov', '12'=>'Dec');
+        $auditYear = array('2013'=>'2013', '2014'=>'2014', '2015'=>'2015', '2016'=>'2016', '2017'=>'2017');
         $this->set(compact('environments', 'accessTypes', 'accessPrivileges', 'sysTypes', 'auditStatus', 'auditMonth', 'auditYear'));
     }
     /*public $helpers = array('Form' => array('className' => 'BootstrapForm'));*/
