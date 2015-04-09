@@ -17,6 +17,7 @@
                    data-show-pagination-switch="true"
                    data-pagination="true"
                    data-side-pagination="client"
+                   data-row-style="rowStyle"
                    data-page-list="[5, 10, 20, 50, 100, 200]">
                 <thead>
                 <tr class="table-header">
@@ -28,7 +29,6 @@
                     <th data-sortable="true"><?php echo h('Auditor'); ?></th>
                     <th data-sortable="true"><?php echo h('Remarks'); ?></th>
                     <th><?php echo h('Evidences'); ?></th>
-                    <!--<th><?php echo h(' '); ?></th>-->
                     <th class="actions" data-switchable="false"><?php echo __('Actions'); ?></th>
                 </tr>
                 </thead>
@@ -37,7 +37,7 @@
                 <tr>
                     <td><?php echo h($auditDetail['AuditDetail']['auditid']); ?>&nbsp;</td>
                     <td><?php echo h($auditDetail['AuditDetail']['accessid']); ?>&nbsp;</td>
-                    <td><?php echo h($auditDetail['AuditDetail']['status']); ?>&nbsp;</td>
+                    <td><?php echo h($auditDetail['AuditDetail']['status']); ?></td>
                     <td><?php
                             $dateObj   = DateTime::createFromFormat('!m', $auditDetail['AuditDetail']['month']);
                             $monthName = $dateObj->format('M'); //F for full format
@@ -56,12 +56,6 @@
                             }
                         ?>&nbsp;
                     </td>
-                    <!--<td><?php
-                            if(!empty($auditDetail['AuditDetail']['evidence2'])) {
-                                echo $this->Html->image('../documents/'.$auditDetail['AuditDetail']['evidence2'], array('alt' => 'Evidence 2'));
-                        }
-                        ?>&nbsp;
-                    </td>-->
                     <td class="actions">
                         <?php echo $this->Html->link(__(''), array('action' => 'edit', $auditDetail['AuditDetail']['auditid']), array('class' => 'glyphicon glyphicon-edit','title'=>'Edit')); ?>
                         <?php echo $this->Form->postLink(__(''), array('action' => 'delete', $auditDetail['AuditDetail']['auditid']), array('class' => 'glyphicon glyphicon-trash','title'=>'Delete'), __('Are you sure you want to delete # %s?', $auditDetail['AuditDetail']['auditid'])); ?>
@@ -73,4 +67,19 @@
         </div>
     </div>
 </div>
-
+<!-- Scripts All custom page related scripts goes below this -->
+<script type="text/javascript">
+    function rowStyle(row, index) {
+        var classes = ['active', 'success', 'info', 'warning', 'danger'];
+        if(row[2] == 'Success') {
+            return {
+                classes: classes[2]
+            };
+        } else {
+            return {
+                classes: classes[4]
+            };
+        }
+    }
+</script>
+<!-- / Scripts -->

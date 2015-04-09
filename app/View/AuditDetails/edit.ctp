@@ -7,11 +7,12 @@
     <div class="panel-body">
         <!-- Panel Body -->
         <?php echo $this->Form->create('AuditDetail', array('type'=>'file')); ?>
+        <?php echo $this->Form->input('auditid');?>
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-5">
                     <div class="form-group">
-                        <?php echo $this->Form->input('accessid', array('label'=>'Access ID<span class="mandatory">*</span>', 'class'=>'form-control', 'disabled'=>'true')); ?>
+                        <?php echo $this->Form->input('accessid', array('label'=>'Access ID<span class="mandatory">*</span>', 'class'=>'form-control', 'readonly'=>'true')); ?>
                     </div>
                     <div class="form-group">
                         <?php echo $this->Form->input('month', array('label'=>'Audited Month<span class="mandatory">*</span>', 'class'=>'form-control', 'options'=>$auditMonth)); ?>
