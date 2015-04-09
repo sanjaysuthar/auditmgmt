@@ -28,7 +28,7 @@
                     <th data-sortable="true"><?php echo h('Auditor'); ?></th>
                     <th data-sortable="true"><?php echo h('Remarks'); ?></th>
                     <th><?php echo h('Evidences'); ?></th>
-                    <th><?php echo $this->Paginator->sort('evidence2', ' '); ?></th>
+                    <!--<th><?php echo h(' '); ?></th>-->
                     <th class="actions" data-switchable="false"><?php echo __('Actions'); ?></th>
                 </tr>
                 </thead>
@@ -46,8 +46,22 @@
                     <td><?php echo h($auditDetail['AuditDetail']['year']); ?>&nbsp;</td>
                     <td><?php echo h($auditDetail['AuditDetail']['auditor']); ?>&nbsp;</td>
                     <td><?php echo h($auditDetail['AuditDetail']['comments']); ?>&nbsp;</td>
-                    <td><?php echo h($auditDetail['AuditDetail']['evidence1']); ?>&nbsp;</td>
-                    <td><?php echo h($auditDetail['AuditDetail']['evidence2']); ?>&nbsp;</td>
+                    <td><?php
+                            if(!empty($auditDetail['AuditDetail']['evidence1'])) {
+                                echo $this->Html->image('../documents/'.$auditDetail['AuditDetail']['evidence1'], array('url' => '../documents/'.$auditDetail['AuditDetail']['evidence1'], 'class'=>'img-thumbnail', 'height'=>'200', 'width'=>'200', 'alt'=>'Evidence 1'));
+                            }
+                            echo h(' ');
+                            if(!empty($auditDetail['AuditDetail']['evidence2'])) {
+                                echo $this->Html->image('../documents/'.$auditDetail['AuditDetail']['evidence2'], array('url' => '../documents/'.$auditDetail['AuditDetail']['evidence2'], 'class'=>'img-thumbnail', 'height'=>'200', 'width'=>'200', 'alt'=>'Evidence 2'));
+                            }
+                        ?>&nbsp;
+                    </td>
+                    <!--<td><?php
+                            if(!empty($auditDetail['AuditDetail']['evidence2'])) {
+                                echo $this->Html->image('../documents/'.$auditDetail['AuditDetail']['evidence2'], array('alt' => 'Evidence 2'));
+                        }
+                        ?>&nbsp;
+                    </td>-->
                     <td class="actions">
                         <?php echo $this->Html->link(__(''), array('action' => 'edit', $auditDetail['AuditDetail']['auditid']), array('class' => 'glyphicon glyphicon-edit','title'=>'Edit')); ?>
                         <?php echo $this->Form->postLink(__(''), array('action' => 'delete', $auditDetail['AuditDetail']['auditid']), array('class' => 'glyphicon glyphicon-trash','title'=>'Delete'), __('Are you sure you want to delete # %s?', $auditDetail['AuditDetail']['auditid'])); ?>
@@ -59,3 +73,4 @@
         </div>
     </div>
 </div>
+

@@ -22,7 +22,7 @@ class AuditDetailsController extends AppController {
  */
 	public function index() {
 		$this->AuditDetail->recursive = 0;
-		$this->set('auditDetails', $this->Paginator->paginate());
+		$this->set('auditDetails', $this->AuditDetail->find('all'));
 	}
 
 /**
@@ -32,7 +32,7 @@ class AuditDetailsController extends AppController {
  * @param string $id
  * @return void
  */
-	public function view($id = null) {
+	/*public function view($id = null) {
 		if (!$this->AuditDetail->exists($id)) {
 			throw new NotFoundException(__('Invalid audit detail'));
 		}
@@ -42,7 +42,7 @@ class AuditDetailsController extends AppController {
         $d = $this->AuditDetail->find('first', $options);
 
         debug($d['AuditDetail']['evidence2']['type']);
-	}
+	}*/
 
 /**
  * add method
@@ -57,25 +57,47 @@ class AuditDetailsController extends AppController {
         } else {
             $this->request->data['AuditDetail']['accessid'] = $accessid;
         }
-
 		if ($this->request->is('post')) {
-            //Mapping multiple file uploads in AuditDetail entity
-            debug($this->request->data);
-            /*$this->request->data['AuditDetail']['evidence1'] = $this->request->data['Evidences'][0];
-            $this->request->data['AuditDetail']['evidence2'] = $this->request->data['Evidences'][1];
-            debug($this->request->data);
-            $fileData = fread(fopen($this->request->data['AuditDetail']['evidence2']['tmp_name'], "r"),
-                $this->request->data['AuditDetail']['evidence2']['size']);
-            $this->request->data['AuditDetail']['evidence2'] = $fileData;
-            debug($this->request->data);*/
-
-			/*$this->AuditDetail->create();
+            // Initialize filename-variable
+            $filename0 = null;
+            $filename1 = null;
+            //Saving 1st Evidence if exist
+            if (!empty($this->request->data['AuditDetail']['evidences'][0]['tmp_name'])
+                && is_uploaded_file($this->request->data['AuditDetail']['evidences'][0]['tmp_name']))
+            {
+                // Strip path information
+                $filename0 = basename($this->request->data['AuditDetail']['evidences'][0]['name']);
+                $RandomNumber = uniqid();
+                $filename0 .= $RandomNumber . '.JPG';
+                move_uploaded_file(
+                    $this->data['AuditDetail']['evidences'][0]['tmp_name'],
+                    WWW_ROOT . DS . 'documents' . DS . $filename0
+                );
+                // Set the file-name only in the database
+                $this->request->data['AuditDetail']['evidence1'] = $filename0;
+            }
+            //Saving 2nd Evidence if exist
+            if (!empty($this->request->data['AuditDetail']['evidences'][1]['tmp_name'])
+                && is_uploaded_file($this->request->data['AuditDetail']['evidences'][1]['tmp_name']))
+            {
+                // Strip path information
+                $filename1 = basename($this->request->data['AuditDetail']['evidences'][1]['name']);
+                $RandomNumber = uniqid();
+                $filename1 .= $RandomNumber . '.JPG';
+                move_uploaded_file(
+                    $this->data['AuditDetail']['evidences'][1]['tmp_name'],
+                    WWW_ROOT . DS . 'documents' . DS . $filename1
+                );
+                $this->request->data['AuditDetail']['evidence2'] = $filename1;
+            }
+            //Now Save in DB
+			$this->AuditDetail->create();
 			if ($this->AuditDetail->save($this->request->data)) {
 				$this->Session->setFlash(__('The audit detail has been saved.'));
 			//	return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The audit detail could not be saved. Please, try again.'));
-			}*/
+			}
 		}
 	}
 
@@ -123,4 +145,9 @@ class AuditDetailsController extends AppController {
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
+
+    public function temp() {
+
+
+    }
 }

@@ -14,17 +14,17 @@
                         <?php echo $this->Form->input('accessid', array('label'=>'Access ID<span class="mandatory">*</span>', 'class'=>'form-control', 'disabled'=>'true')); ?>
                     </div>
                     <div class="form-group">
-                        <?php echo $this->Form->input('status', array('label'=>'Audit Status<span class="mandatory">*</span>', 'class'=>'form-control', 'options'=>$auditStatus)); ?>
+                        <?php echo $this->Form->input('month', array('label'=>'Audited Month<span class="mandatory">*</span>', 'class'=>'form-control', 'options'=>$auditMonth)); ?>
                     </div>
                     <div class="form-group">
-                        <?php echo $this->Form->input('month', array('label'=>'Audited Month<span class="mandatory">*</span>', 'class'=>'form-control', 'options'=>$auditMonth)); ?>
+                        <?php echo $this->Form->input('year', array('label'=>'Audited Year<span class="mandatory">*</span>', 'class'=>'form-control', 'options'=>$auditYear)); ?>
                     </div>
                 </div>
                 <div class="col-md-2">
                 </div>
                 <div class="col-md-5">
                     <div class="form-group">
-                        <?php echo $this->Form->input('year', array('label'=>'Audited Year<span class="mandatory">*</span>', 'class'=>'form-control', 'options'=>$auditYear)); ?>
+                        <?php echo $this->Form->input('status', array('label'=>'Audit Status<span class="mandatory">*</span>', 'class'=>'form-control', 'options'=>$auditStatus)); ?>
                     </div>
                     <div class="form-group">
                         <?php echo $this->Form->input('auditor', array('label'=>'Auditor ext Id<span class="mandatory">*</span>', 'class'=>'form-control', 'placeholder'=>'Ex: ext.sanjkumar')); ?>
@@ -40,7 +40,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <div class="form-group">
-                        <?php echo $this->Form->input('evidence1', array('name'=>'Evidences[]', 'type'=>'file', 'label'=>'Evidences(Max: 2)', 'class'=>'form-control file', 'multiple'=>'true', 'accept'=>'image/*')); ?>
+                        <?php echo $this->Form->input('evidence1', array('name'=>'data[AuditDetail][evidences][]', 'type'=>'file', 'label'=>'Evidences(Max: 2)', 'class'=>'form-control file', 'multiple'=>'true', 'accept'=>'image/*')); ?>
                     </div>
                 </div>
             </div>

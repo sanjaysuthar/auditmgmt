@@ -22,7 +22,7 @@ class AccessDetailsController extends AppController {
  */
 	public function index() {
 		$this->AccessDetail->recursive = 0;
-		$this->set('accessDetails', $this->Paginator->paginate());
+		$this->set('accessDetails', $this->AccessDetail->find('all'));
 	}
 
     /**
