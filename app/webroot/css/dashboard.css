@@ -147,3 +147,7 @@ body {
 .mandatory {
      color: red;
 }
+
+.table-header {
+    color: #337ab7;
+}

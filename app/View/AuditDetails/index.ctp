@@ -6,19 +6,30 @@
     </div>
     <div class="panel-body">
         <div class="table-responsive">
-            <table cellpadding="0" cellspacing="0" class="table table-hover">
+            <table cellpadding="0" cellspacing="0"
+                   class="table table-hover"
+                   data-toggle="table"
+                   data-striped="true"
+                   data-show-columns="true"
+                   data-search="true"
+                   data-show-toggle="true"
+                   data-show-export="true"
+                   data-show-pagination-switch="true"
+                   data-pagination="true"
+                   data-side-pagination="client"
+                   data-page-list="[5, 10, 20, 50, 100, 200]">
                 <thead>
-                <tr>
-                    <th><?php echo $this->Paginator->sort('auditid', '#'); ?></th>
-                    <th><?php echo $this->Paginator->sort('accessid', 'Access ID'); ?></th>
-                    <th><?php echo $this->Paginator->sort('status', 'Stauts'); ?></th>
-                    <th><?php echo $this->Paginator->sort('month', 'Audit Month'); ?></th>
-                    <th><?php echo $this->Paginator->sort('year', 'Year'); ?></th>
-                    <th><?php echo $this->Paginator->sort('auditor', 'Auditor'); ?></th>
-                    <th><?php echo $this->Paginator->sort('comments', 'Remarks'); ?></th>
-                    <th><?php echo $this->Paginator->sort('evidence1', 'Evidences'); ?></th>
+                <tr class="table-header">
+                    <th data-sortable="true"><?php echo h('#'); ?></th>
+                    <th data-sortable="true"><?php echo h('Access ID'); ?></th>
+                    <th data-sortable="true"><?php echo h('Stauts'); ?></th>
+                    <th data-sortable="true"><?php echo h('Audit Month'); ?></th>
+                    <th data-sortable="true"><?php echo h('Year'); ?></th>
+                    <th data-sortable="true"><?php echo h('Auditor'); ?></th>
+                    <th data-sortable="true"><?php echo h('Remarks'); ?></th>
+                    <th><?php echo h('Evidences'); ?></th>
                     <th><?php echo $this->Paginator->sort('evidence2', ' '); ?></th>
-                    <th class="actions"><?php echo __('Actions'); ?></th>
+                    <th class="actions" data-switchable="false"><?php echo __('Actions'); ?></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -45,21 +56,6 @@
                 <?php endforeach; ?>
                 </tbody>
             </table>
-        </div>
-        <br>
-        <p>
-            <?php
-            echo $this->Paginator->counter(array(
-            'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-            ));
-            ?>
-        </p>
-        <div class="paging">
-            <?php
-                echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-            echo $this->Paginator->numbers(array('separator' => ''));
-            echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-            ?>
         </div>
     </div>
 </div>

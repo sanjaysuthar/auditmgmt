@@ -12,21 +12,31 @@
     </div>
     <div class="panel-body">
         <div class="table-responsive">
-            <table cellpadding="0" cellspacing="0" class="table table-hover">
+            <table cellpadding="0" cellspacing="0"
+                   class="table table-hover"
+                   data-toggle="table"
+                   data-striped="true"
+                   data-show-columns="true"
+                   data-search="true"
+                   data-show-toggle="true"
+                   data-show-export="true"
+                   data-show-pagination-switch="true"
+                   data-pagination="true"
+                   data-side-pagination="client"
+                   data-page-list="[5, 10, 20, 50, 100, 200]">
                 <thead>
-                    <tr>
-                        <th><?php echo $this->Paginator->sort('accessid', '#'); ?></th>
-                        <th><?php echo $this->Paginator->sort('uniqueid', 'UID'); ?></th>
-                        <th><?php echo $this->Paginator->sort('fname', 'Name'); ?></th>
-                        <th><?php echo $this->Paginator->sort('lname', ' '); ?></th>
-                        <th><?php echo $this->Paginator->sort('systype', 'Sys Type'); ?></th>
-                        <th><?php echo $this->Paginator->sort('sysname', 'Sys Name'); ?></th>
-                        <th><?php echo $this->Paginator->sort('env', 'Env.'); ?></th>
-                        <th><?php echo $this->Paginator->sort('accresp', 'Resp.'); ?></th>
-                        <th><?php echo $this->Paginator->sort('acctype', 'Type'); ?></th>
-                        <th><?php echo $this->Paginator->sort('accprivilege', 'Privilege'); ?></th>
-                        <th><?php echo $this->Paginator->sort('accidassigned', 'Assigned ID'); ?></th>
-                        <th class="actions"><?php echo __('Actions'); ?></th>
+                    <tr class="table-header">
+                        <th data-sortable="true"><?php echo h('#'); ?></th>
+                        <th data-sortable="true"><?php echo h('UID'); ?></th>
+                        <th data-sortable="true"><?php echo h('Name'); ?></th>
+                        <th data-sortable="true"><?php echo h('Sys Type'); ?></th>
+                        <th data-sortable="true"><?php echo h('Sys Name'); ?></th>
+                        <th data-sortable="true"><?php echo h('Env'); ?></th>
+                        <th data-sortable="true"><?php echo h('Resp.'); ?></th>
+                        <th data-sortable="true"><?php echo h('Type'); ?></th>
+                        <th data-sortable="true"><?php echo h('Privilege'); ?></th>
+                        <th data-sortable="true"><?php echo h('Assigned ID'); ?></th>
+                        <th class="actions" data-switchable="false"><?php echo __('Actions'); ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,8 +44,7 @@
                         <tr>
                             <td><?php echo h($accessDetail['AccessDetail']['accessid']); ?>&nbsp;</td>
                             <td><?php echo h($accessDetail['AccessDetail']['uniqueid']); ?>&nbsp;</td>
-                            <td><?php echo h($accessDetail['AccessDetail']['fname']); ?>&nbsp;</td>
-                            <td><?php echo h($accessDetail['AccessDetail']['lname']); ?>&nbsp;</td>
+                            <td><?php echo h($accessDetail['AccessDetail']['fname'] . " " . $accessDetail['AccessDetail']['lname']); ?>&nbsp;</td>
                             <td><?php echo h($accessDetail['AccessDetail']['systype']); ?>&nbsp;</td>
                             <td><?php echo h($accessDetail['AccessDetail']['sysname']); ?>&nbsp;</td>
                             <td><?php echo h($accessDetail['AccessDetail']['env']); ?>&nbsp;</td>
@@ -52,21 +61,6 @@
                     <?php endforeach; ?>
                 </tbody>
             </table>
-        </div>
-        <br>
-        <p>
-            <?php
-            echo $this->Paginator->counter(array(
-                'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-            ));
-            ?>
-        </p>
-        <div class="paging">
-            <?php
-                echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-                echo $this->Paginator->numbers(array('separator' => ''));
-                echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-            ?>
         </div>
     </div>
 </div>
