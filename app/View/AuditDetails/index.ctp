@@ -48,11 +48,11 @@
                     <td><?php echo h($auditDetail['AuditDetail']['comments']); ?>&nbsp;</td>
                     <td><?php
                             if(!empty($auditDetail['AuditDetail']['evidence1'])) {
-                                echo $this->Html->image('../documents/'.$auditDetail['AuditDetail']['evidence1'], array('url' => '../documents/'.$auditDetail['AuditDetail']['evidence1'], 'class'=>'img-thumbnail', 'height'=>'200', 'width'=>'200', 'alt'=>'Evidence 1'));
+                                echo $this->Html->image('../documents/'.$auditDetail['AuditDetail']['evidence1'], array('url' => '../documents/'.$auditDetail['AuditDetail']['evidence1'], 'class'=>'img-thumbnail', 'height'=>'150', 'width'=>'150', 'alt'=>'Evidence 1'));
                             }
                             echo h(' ');
                             if(!empty($auditDetail['AuditDetail']['evidence2'])) {
-                                echo $this->Html->image('../documents/'.$auditDetail['AuditDetail']['evidence2'], array('url' => '../documents/'.$auditDetail['AuditDetail']['evidence2'], 'class'=>'img-thumbnail', 'height'=>'200', 'width'=>'200', 'alt'=>'Evidence 2'));
+                                echo $this->Html->image('../documents/'.$auditDetail['AuditDetail']['evidence2'], array('url' => '../documents/'.$auditDetail['AuditDetail']['evidence2'], 'class'=>'img-thumbnail', 'height'=>'150', 'width'=>'150', 'alt'=>'Evidence 2'));
                             }
                         ?>&nbsp;
                     </td>

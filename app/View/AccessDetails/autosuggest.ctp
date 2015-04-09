@@ -50,7 +50,14 @@
                     <td><?php echo h($accessDetail['AccessDetail']['acctype']); ?>&nbsp;</td>
                     <td><?php echo h($accessDetail['AccessDetail']['accprivilege']); ?>&nbsp;</td>
                     <td><?php echo h($accessDetail['AccessDetail']['accidassigned']); ?>&nbsp;</td>
-                    <td><?php echo h($accessDetail['lad']['latest_audit_month']); ?>&nbsp;</td>
+                    <td><?php
+                        if(!empty($accessDetail['lad']['latest_audit_month'])) {
+                            $dateObj   = DateTime::createFromFormat('!m', $accessDetail['lad']['latest_audit_month']);
+                            $monthName = $dateObj->format('M'); //F for full format
+                            echo h($monthName);
+                        }
+                        ?>&nbsp;
+                    </td>
                     <td><?php echo h($accessDetail['lad']['latest_audit_year']); ?>&nbsp;</td>
                     <td class="actions">
                         <?php echo $this->Html->link(__(''), array('controller'=>'AuditDetails', 'action' => 'add', $accessDetail['AccessDetail']['accessid']), array('class' => 'glyphicon glyphicon-check','title'=>'Audit')); ?>
