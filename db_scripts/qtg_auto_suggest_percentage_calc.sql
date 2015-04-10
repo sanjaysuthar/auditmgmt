@@ -1,0 +1,1 @@
+SELECT ROUND((SELECT count(*) FROM access_details) * 0.2, 0) AS Percentage FROM DUAL

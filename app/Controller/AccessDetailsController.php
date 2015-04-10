@@ -143,7 +143,15 @@ class AccessDetailsController extends AppController {
     /**
      * auto suggest audits to be performed, based on access which are not audited from longer time
      */
-    public function autosuggest() {
+    public function autosuggest($perc = null) {
+        if($perc == null) {
+            throw new NotFoundException(__('Percentage Missing'));
+        }
+        //setting to be visible on UI side
+        $this->set(compact('perc'));
+        $perc = $perc / 100;
+        $percentage = $this->AccessDetail->query("SELECT ROUND((SELECT count(*) FROM access_details) * ". $perc.", 0) AS Percentage FROM DUAL");
+        //debug($percentage[0][0]['Percentage']);
         $this->Paginator->settings = array(
             'conditions' => array('1'=>'1=1'
             ),
@@ -161,7 +169,7 @@ class AccessDetailsController extends AppController {
                 'lad.latest_audit_year'=>'ASC',
                 'lad.latest_audit_month'=>'ASC'
             ),
-            'limit' =>20
+            'limit' =>$percentage[0][0]['Percentage']
         );
         $accessDetails = $this->Paginator->paginate('AccessDetail', array(), array('lad.latest_audit_year', 'lad.latest_audit_month'));
         //debug($accessDetails);

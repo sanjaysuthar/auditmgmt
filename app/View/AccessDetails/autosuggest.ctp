@@ -1,7 +1,22 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <!-- Panel Header -->
-        <b>Perform Audit on Auto Suggested Access Details</b>
+        <b>Perform Audit on <?php echo $perc?>% of Auto Suggested Access Details</b>
+        <div class="btn-group pull-right">
+            <button type="button" data-toggle="dropdown" class="btn btn-warning dropdown-toggle">Auto Suggest Percentage<span class="caret"></span></button>
+            <ul class="dropdown-menu">
+                <li><a href="10">10%</a></li>
+                <li><a href="20">20%</a></li>
+                <li><a href="30">30%</a></li>
+                <li><a href="40">40%</a></li>
+                <li><a href="50">50%</a></li>
+                <li><a href="60">60%</a></li>
+                <li><a href="70">70%</a></li>
+                <li><a href="80">80%</a></li>
+                <li><a href="90">90%</a></li>
+                <li><a href="100">100%</a></li>
+            </ul>
+        </div>
         <br>
         <b style="color: lightseagreen">Audit suggestion is based on Access Details which has not been audited from long time, appear first in table</b>
         <!-- / Panel Header -->
