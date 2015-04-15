@@ -94,7 +94,7 @@ class AuditDetailsController extends AppController {
 			$this->AuditDetail->create();
 			if ($this->AuditDetail->save($this->request->data)) {
 				$this->Session->setFlash(__('The audit detail has been saved.'));
-			//	return $this->redirect(array('action' => 'index'));
+				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The audit detail could not be saved. Please, try again.'));
 			}

@@ -25,7 +25,6 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		<?php echo $this->fetch('title'); ?>
 	</title>
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0"/>
-
 	<?php
 		echo $this->Html->meta('icon');
 		echo $this->Html->css('bootstrap');
@@ -61,7 +60,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Audit Management Tool (#Team Name)</a>
+                <img src="/auditmgmt/img/audit-icon-3.png" width="40" height="40" class="pull-left" style="margin-top: 4px"/>
+                <a class="navbar-brand" href="/auditmgmt/accessdetails">&nbsp;&nbsp;<b>THRUST</b> : The Audit Management Tool</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -100,6 +100,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         </div>
         <!-- /#page-content-wrapper -->
     </div>
+<!--<?php echo $this->element('sql_dump'); ?>-->
 <!-- / Main Wrapper for Page -->
 
 <!-- Bootstrap core JavaScript
