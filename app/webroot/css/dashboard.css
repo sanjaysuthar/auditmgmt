@@ -7,7 +7,6 @@ body {
   padding-top: 50px;
 }
 
-
 /*
  * Global add-ons
  */
@@ -150,4 +149,24 @@ body {
 
 .table-header {
     color: #337ab7;
+}
+
+/**Login Panel CSS*/
+.panel-heading-login {
+    padding: 5px 15px;
+}
+
+.panel-footer-login {
+    padding: 1px 15px;
+    color: #A0A0A0;
+}
+
+.profile-img {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
 }

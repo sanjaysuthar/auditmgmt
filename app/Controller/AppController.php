@@ -32,6 +32,9 @@ App::import('Vendor', 'php-excel-reader/excel_reader2');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+    public static $appuserid = 'admin';
+    public static $apppassword = 'admin';
+
     public function beforeFilter() {
         $environments = array('DEV/CMAD'=>'DEV/CMAD','INT/CMAQ'=>'INT/CMAQ', 'UAT/QUA'=>'UAT/QUA','PREPROD/TST'=>'PREPROD/TST', 'PROD'=>'PROD');
         $accessTypes = array('Personal'=>'Personal', 'Common'=>'Common');
