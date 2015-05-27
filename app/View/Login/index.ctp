@@ -1,10 +1,22 @@
+<!--
+ /**
+ * Thrust: The Audit Management Tool
+ * 
+ * @author: SANJAY SUTHAR
+ * @email:  ss2445@gmail.com
+ * @version:	1.0
+ * @since:	v1.0
+ */
+ -->
+<!-- Script to put CSS on body and hide the left Nav Menu-->
 <script>
     $(document).ready(function(){
-        $("body").css({"background-image": "url(\"http://localhost/auditmgmt/img/wall-1.jpg\")", "background-repeat": "no-repeat", "background-size" : "100%"});
-        $( "#menu-toggle" ).trigger( "click" );
+        $("body").css({"background-image": "url(\"/auditmgmt/img/wall-1.jpg\")", "background-repeat": "no-repeat", "background-size" : "100%"});
+        $("#menu-toggle").trigger( "click" );
     });
 </script>
-<div class="container" style="margin-top:40px">
+<!-- / Script -->
+<div class="container hidden-" style="margin-top:40px">
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
             <div class="panel panel-default">
@@ -27,7 +39,7 @@
 												<span class="input-group-addon">
 													<i class="glyphicon glyphicon-user"></i>
 												</span>
-                                            <input class="form-control" placeholder="Username" name="loginname" type="text" autofocus>
+                                            <input class="form-control" placeholder="Username" name="loginname" type="text" autofocus required="required">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -35,7 +47,7 @@
 												<span class="input-group-addon">
 													<i class="glyphicon glyphicon-lock"></i>
 												</span>
-                                            <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                            <input class="form-control" placeholder="Password" name="password" type="password" value="" required="required">
                                         </div>
                                     </div>
                                     <div class="form-group">

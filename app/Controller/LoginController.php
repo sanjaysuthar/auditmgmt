@@ -1,11 +1,13 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Sanjay
- * Date: 4/15/15
- * Time: 11:30 AM
+ * Thrust: The Audit Management Tool
+ * 
+ * @author: SANJAY SUTHAR
+ * @email:  ss2445@gmail.com
+ * @version:	1.0
+ * @since:	v1.0
  */
-
+ 
 class LoginController extends AppController {
 
 

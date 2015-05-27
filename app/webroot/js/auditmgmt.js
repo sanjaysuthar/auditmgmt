@@ -1,6 +1,12 @@
 /**
- * Created by Sanjay on 4/1/15.
+ * Thrust: The Audit Management Tool
+ * 
+ * @author: SANJAY SUTHAR
+ * @email:  ss2445@gmail.com
+ * @version:	1.0
+ * @since:	v1.0
  */
+ 
 /**
  * Excel Upload File Validate Function
  * @type {string[]}

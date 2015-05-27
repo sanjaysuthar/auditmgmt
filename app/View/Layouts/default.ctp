@@ -17,6 +17,16 @@
 $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
 $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 ?>
+<!--
+ /**
+ * Thrust: The Audit Management Tool
+ * 
+ * @author: SANJAY SUTHAR
+ * @email:  ss2445@gmail.com
+ * @version:	1.0
+ * @since:	v1.0
+ */
+ -->
 <!DOCTYPE html>
 <html>
 <head>

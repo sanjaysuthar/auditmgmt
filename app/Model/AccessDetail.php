@@ -1,4 +1,12 @@
 <?php
+/**
+ * Thrust: The Audit Management Tool
+ * 
+ * @author: SANJAY SUTHAR
+ * @email:  ss2445@gmail.com
+ * @version:	1.0
+ * @since:	v1.0
+ */
 App::uses('AppModel', 'Model');
 /**
  * AccessDetail Model
