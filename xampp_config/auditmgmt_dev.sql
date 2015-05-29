@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2015 at 09:31 AM
+-- Generation Time: May 29, 2015 at 12:37 PM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -40,79 +40,6 @@ CREATE TABLE IF NOT EXISTS `access_details` (
   `accidassigned` varchar(30) NOT NULL COMMENT 'Access Id Assigned'
 ) ENGINE=InnoDB AUTO_INCREMENT=118 DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `access_details`
---
-
-INSERT INTO `access_details` (`accessid`, `uniqueid`, `fname`, `lname`, `systype`, `sysname`, `env`, `accresp`, `acctype`, `accprivilege`, `accidassigned`) VALUES
-(51, 'ext.gvanangamudy', 'Gayathri', 'Vanangamudy', 'Application', 'RTC  [MRS-SV-02104 ( 10.0.101.188)]', 'PROD', 'CS-MRS', 'Personal', 'R/W', 'ext.gvanangamudy'),
-(52, 'ext.gvanangamudy', 'Gayathri', 'Vanangamudy', 'Application', 'RQM [MRS-SV-02204 (10.0.144.17)]', 'PROD', 'CS', 'Personal', 'R/W', 'ext.gvanangamudy'),
-(53, 'ext.gvanangamudy', 'Gayathri', 'Vanangamudy', 'Application', 'RTC  [MRS-DV-02203 (10.0.141.21)', 'PREPROD/TST', 'CS', 'Personal', 'R/W', 'ext.gvanangamudy'),
-(54, 'ext.gvanangamudy', 'Gayathri', 'Vanangamudy', 'Application', 'RQM [MRS-DV-02202 (10.0.141.22)]', 'PREPROD/TST', 'CS', 'Personal', 'R/W', 'ext.gvanangamudy'),
-(55, 'ext.gvanangamudy', 'Gayathri', 'Vanangamudy', 'Application', 'CITRIX VM - CMA-CGMDTX00110 [10.0.120.193]', 'PROD', 'CS', 'Personal', 'Read', 'ext.gvanangamudy'),
-(56, 'ext.gvanangamudy', 'Gayathri', 'Vanangamudy', 'Database', 'MRS-DB-00043 (10.0.135.43)', 'PROD', 'CS', 'Personal', 'Read', 'ext.gvanangamudy'),
-(57, 'ext.gvanangamudy', 'Gayathri', 'Vanangamudy', 'Database', 'MRS-PR-00043 (10.0.110.45)', 'PREPROD/TST', 'CS', 'Personal', 'Read', 'ext.gvanangamudy'),
-(58, 'ext.mjaganathan', 'Mohanraj', 'Jaganathan', 'Application', 'RTC  [MRS-SV-02104 ( 10.0.101.188)]', 'PROD', 'CS', 'Personal', 'R/W', 'ext.mjaganathan'),
-(59, 'ext.mjaganathan', 'Mohanraj', 'Jaganathan', 'Application', 'RQM [MRS-SV-02204 (10.0.144.17)]', 'PROD', 'CS', 'Personal', 'R/W', 'ext.mjaganathan'),
-(60, 'ext.mjaganathan', 'Mohanraj', 'Jaganathan', 'Application', 'RTC  [MRS-DV-02203 (10.0.141.21)', 'PREPROD/TST', 'CS', 'Personal', 'R/W', 'ext.mjaganathan'),
-(61, 'ext.mjaganathan', 'Mohanraj', 'Jaganathan', 'Application', 'RQM [MRS-DV-02202 (10.0.141.22)]', 'PREPROD/TST', 'CS', 'Personal', 'R/W', 'ext.mjaganathan'),
-(62, 'ext.mjaganathan', 'Mohanraj', 'Jaganathan', 'Application', 'CITRIX VM - CMA-CGMDTX00009 [10.0.121.71]', 'PROD', 'CS', 'Personal', 'Read', 'ext.mjaganathan'),
-(63, 'ext.sanjkumar', 'Sanjay', 'Kumar', 'Application', 'LARA', 'UAT/QUA', 'CS', 'Personal', 'R/W', 'SKUMARTBM'),
-(64, 'ext.sanjkumar', 'Sanjay', 'Kumar', 'Application', 'Citrix VM - CMA-CGMDTX00196 (10.0.121.23)', 'PROD', 'CS', 'Personal', 'R/W', 'ext.sanjkumar'),
-(65, 'ext.sanjkumar', 'Sanjay', 'Kumar', 'Application', 'Jenkins - TBM', 'INT/CMAQ', 'CS', 'Personal', 'R/W', 'ext.sanjkumar'),
-(66, 'ext.sanjkumar', 'Sanjay', 'Kumar', 'Application', 'SVN - TBM/MUST/CARGO', 'PROD', 'CS', 'Personal', 'R/W', 'ext.sanjkumar'),
-(67, 'ext.sanjkumar', 'Sanjay', 'Kumar', 'Application', 'RQM', 'PROD', 'CS', 'Personal', 'R/W', 'ext.sanjkumar'),
-(68, 'ext.sanjkumar', 'Sanjay', 'Kumar', 'Database', 'Lara Cargo', 'INT/CMAQ', 'CS', 'Common', 'R/W', 'LRA_ABCF'),
-(69, 'ext.sanjkumar', 'Sanjay', 'Kumar', 'Application', 'Lara Cargo', 'INT/CMAQ', 'CS', 'Common', 'R/W', 'LRA_ABCF'),
-(70, 'ext.sanjkumar', 'Sanjay', 'Kumar', 'Database', 'Lara Cargo', 'UAT/QUA', 'CS', 'Common', 'R/W', 'LRA_ABCF'),
-(71, 'ext.sanjkumar', 'Sanjay', 'Kumar', 'Database', 'Lara Cargo', 'PREPROD/TST', 'CS', 'Common', 'R/W', 'LRA_ABCF'),
-(72, 'ext.sanjkumar', 'Sanjay', 'Kumar', 'Database', 'Lara TBM', 'INT/CMAQ', 'CS', 'Common', 'R/W', 'CTB_ADMIN'),
-(73, 'ext.sanjkumar', 'Sanjay', 'Kumar', 'Database', 'Lara TBM', 'UAT/QUA', 'CS', 'Common', 'R/W', 'CTB_ADMIN'),
-(74, 'ext.sanjkumar', 'Sanjay', 'Kumar', 'Application', 'Lara TBM', 'INT/CMAQ', 'CS', 'Common', 'R/W', 'CTB_ADMIN'),
-(75, 'ext.sanjkumar', 'Sanjay', 'Kumar', 'Application', 'Lara TBM', 'UAT/QUA', 'CS', 'Common', 'R/W', 'CTB_ADMIN'),
-(76, 'ext.sanjkumar', 'Sanjay', 'Kumar', 'Application', 'MR0555', 'UAT/QUA', 'CS', 'Common', 'R/W', 'weblogic'),
-(77, 'ext.sanjkumar', 'Sanjay', 'Kumar', 'Database', 'CMAD & CMAQ', 'DEV/CMAD', 'CS', 'Common', 'R/W', 'SCE_WS'),
-(78, 'ext.sanjkumar', 'Sanjay', 'Kumar', 'Application', 'MR0157', 'DEV/CMAD', 'CS', 'Common', 'R/W', 'weblogic'),
-(79, 'ext.vjewlikar', 'Vishakha', 'Jewlikar', 'Database', 'LARAR,Webservices', 'UAT/QUA', 'CS', 'Common', 'R/W', 'SCE_WS'),
-(80, 'ext.vjewliar', 'Vishakha', 'Jewlikar', 'Application', 'MR0555', 'UAT/QUA', 'CS', 'Common', 'R/W', 'weblogic'),
-(81, 'ext.vjewlikar', 'Vishakha', 'Jewlikar', 'Application', 'Jenkins', 'UAT/QUA', 'CS', 'Personal', 'R/W', 'ext.vjewlikar'),
-(82, 'ext.vjewlikar', 'Vishakha', 'Jewlikar', 'Database', 'CMAD &CMAQ', 'DEV/CMAD', 'CS', 'Common', 'R/W', 'SCE_WS'),
-(83, 'ext.vjewliar', 'Vishakha', 'Jewlikar', 'Application', 'MR0157', 'DEV/CMAD', 'CS', 'Common', 'R/W', 'weblogic'),
-(84, 'ext.vjewlikar', 'Vishakha', 'Jewlikar', 'Application', 'Jenkins', 'DEV/CMAD', 'CS', 'Personal', 'R/W', 'ext.vjewlikar'),
-(85, 'ext.stn', 'Savitha', 'TN', 'Application', 'Citrix VM - CMA-CGMDTX00196 (10.0.121.23)', 'PROD', 'CS', 'Personal', 'R/W', 'ext.stn'),
-(86, 'ext.stn', 'Savitha', 'TN', 'Application', 'Jenkins - LARA CARGO', 'INT/CMAQ', 'CS', 'Personal', 'Read', 'ext.stn'),
-(87, 'ext.stn', 'Savitha', 'TN', 'Application', 'SVN - LARA CARGO', 'DEV/CMAD', 'CS', 'Personal', 'R/W', 'ext.stn'),
-(88, 'ext.stn', 'Savitha', 'TN', 'Application', 'RQM', 'PROD', 'CS', 'Personal', 'R/W', 'ext.stn'),
-(89, 'ext.stn', 'Savitha', 'TN', 'Database', 'LARAR', 'UAT/QUA', 'CS', 'Personal', 'R/W', 'ext.stn'),
-(90, 'ext.stn', 'Savitha', 'TN', 'Database', 'CMAQ', 'DEV/CMAD', 'CS', 'Personal', 'R/W', 'ext.stn'),
-(91, 'ext.stn', 'Savitha', 'TN', 'Database', 'Lara Cargo', 'INT/CMAQ', 'CS', 'Common', 'R/W', 'LRA_ABCF'),
-(92, 'ext.stn', 'Savitha', 'TN', 'Application', 'Lara Cargo', 'INT/CMAQ', 'CS', 'Common', 'R/W', 'LRA_ABCF'),
-(93, 'ext.stn', 'Savitha', 'TN', 'Database', 'Lara Cargo', 'UAT/QUA', 'CS', 'Common', 'R/W', 'LRA_ABCF'),
-(94, 'ext.stn', 'Savitha', 'TN', 'Database', 'Lara Cargo', 'PREPROD/TST', 'CS', 'Common', 'R/W', 'LRA_ABCF'),
-(95, 'ext.jmohanan', 'Jayachithra', 'Mohanan', 'Application', 'Citrix VM - CMA-CGMDTX00196 (10.0.121.23)', 'PROD', 'CS', 'Personal', 'R/W', 'ext.jmohanan'),
-(96, 'ext.jmohanan', 'Jayachithra', 'Mohanan', 'Application', 'Jenkins - Lara Cargo', 'INT/CMAQ', 'CS', 'Personal', 'R/W', 'ext.jmohanan'),
-(97, 'ext.jmohanan', 'Jayachithra', 'Mohanan', 'Application', 'SVN - CARGO', 'DEV/CMAD', 'CS', 'Personal', 'R/W', 'ext.jmohanan'),
-(98, 'ext.jmohanan', 'Jayachithra', 'Mohanan', 'Application', 'RQM', 'PROD', 'CS', 'Personal', 'R/W', 'ext.jmohanan'),
-(99, 'ext.jmohanan', 'Jayachithra', 'Mohanan', 'Database', 'Lara Cargo', 'INT/CMAQ', 'CS', 'Common', 'R/W', 'LRA_ABCF'),
-(100, 'ext.jmohanan', 'Jayachithra', 'Mohanan', 'Application', 'Lara Cargo', 'INT/CMAQ', 'CS', 'Common', 'R/W', 'LRA_ABCF'),
-(101, 'ext.jmohanan', 'Jayachithra', 'Mohanan', 'Database', 'Lara Cargo', 'UAT/QUA', 'CS', 'Common', 'R/W', 'LRA_ABCF'),
-(102, 'ext.jmohanan', 'Jayachithra', 'Mohanan', 'Database', 'Lara Cargo', 'PREPROD/TST', 'CS', 'Common', 'R/W', 'LRA_ABCF'),
-(103, 'ext.pseshadri', 'Prabhu', 'Seshadri', 'Application', 'CITRIX : cma-cgmdtx00264.cma-cgm.com', 'PROD', 'CS', 'Personal', 'Read', 'ext.pseshadri'),
-(104, 'ext.pseshadri', 'Prabhu', 'Seshadri', 'Application', 'Citrix VM - CMA-CGMDTX00078.cma-cgm.com', 'PROD', 'CS', 'Personal', 'Read', 'ext.pseshadri'),
-(105, 'ext.pseshadri', 'Prabhu', 'Seshadri', 'Application', 'LARA', 'PROD', 'CS', 'Personal', 'R/W', 'ext.pseshadri'),
-(106, 'ext.pseshadri', 'Prabhu', 'Seshadri', 'Application', 'LARA', 'UAT/QUA', 'CS', 'Personal', 'R/W', 'ext.pseshadri'),
-(107, 'ext.pseshadri', 'Prabhu', 'Seshadri', 'Application', 'LARA', 'INT/CMAQ', 'CS', 'Personal', 'R/W', 'ext.pseshadri'),
-(108, 'ext.pseshadri', 'Prabhu', 'Seshadri', 'Application', 'GAIA', 'PROD', 'CS', 'Personal', 'Read', 'ext.pseshadri'),
-(109, 'ext.pseshadri', 'Prabhu', 'Seshadri', 'Application', 'LARA Cargo', 'PROD', 'CS', 'Personal', 'R/W', 'pseshadri'),
-(110, 'ext.pseshadri', 'Prabhu', 'Seshadri', 'Application', 'LARA Cargo', 'UAT/QUA', 'CS', 'Personal', 'R/W', 'pseshadri'),
-(111, 'ext.pseshadri', 'Prabhu', 'Seshadri', 'Application', 'LARA Cargo', 'INT/CMAQ', 'CS', 'Personal', 'R/W', 'pseshadri'),
-(112, 'ext.pseshadri', 'Prabhu', 'Seshadri', 'Application', 'RPM', 'PROD', 'CS', 'Personal', 'R/W', 'pseshadri'),
-(113, 'ext.pseshadri', 'Prabhu', 'Seshadri', 'Application', 'RTC', 'PROD', 'CS', 'Personal', 'R/W', 'pseshadri'),
-(114, 'ext.pseshadri', 'Prabhu', 'Seshadri', 'Application', 'RQM', 'PROD', 'CS', 'Personal', 'R/W', 'pseshadri'),
-(115, 'ext.pseshadri', 'Prabhu', 'Seshadri', 'Application', 'Jenkins - LARA CARGO', 'INT/CMAQ', 'CS', 'Personal', 'R/W', 'pseshadri'),
-(116, 'ext.jmohanan', 'Jaya', 'Mohanan', 'Database', 'LARA', 'PREPROD/TST', 'CS', 'Personal', 'Read', 'ext.jmohanan'),
-(117, 'ext.sanjkumar', 'Sanjay', 'Kumar', 'Database', 'Lara', 'PREPROD/TST', 'CS', 'Personal', 'R/W', 'sanjkumar');
-
 -- --------------------------------------------------------
 
 --
@@ -139,19 +66,6 @@ CREATE TABLE IF NOT EXISTS `audit_details` (
   `evidence1` varchar(200) DEFAULT NULL COMMENT 'Screenshot',
   `evidence2` varchar(200) DEFAULT NULL COMMENT 'Screenshot'
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `audit_details`
---
-
-INSERT INTO `audit_details` (`auditid`, `accessid`, `status`, `month`, `year`, `auditor`, `comments`, `evidence1`, `evidence2`) VALUES
-(44, 64, 'Success', '4', 2015, 'ext.pseshadri', 'User has this access', 'Sanj_Citrix.JPG5527b6ceb7096.JPG', NULL),
-(45, 107, 'Success', '4', 2015, 'ext.sanjkumar', 'User has this access', 'Prabhu_2.jpg5527b76e23d93.JPG', NULL),
-(46, 96, 'Failed', '4', 2015, 'ext.sanjkumar', 'User doesn''t has this access', 'Jenkins -Jaya Login.png5527bf4207ec3.JPG', NULL),
-(47, 98, 'Success', '4', 2015, 'ext.sanjkumar', 'User has this access', 'RQM -Jaya Login.png5527c1a36c793.JPG', NULL),
-(48, 51, 'Failed', '4', 2015, 'ext.sanjkumar', 'Audit Failed : Access Violation', 'image001 (1).png552cd37a54bb0.JPG552dfa659ae05.JPG', NULL),
-(49, 51, 'Success', '4', 2015, 'ext.sanjkumar', 'User has this access', 'me2.JPG552f9ef911b66.JPG', NULL),
-(50, 51, 'Success', '5', 2015, 'ext.sanjkumar', 'User has this access', 'Citrix.png555097bf8b660.JPG55643e797aa1f.JPG', NULL);
 
 -- --------------------------------------------------------
 
