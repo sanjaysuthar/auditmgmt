@@ -11,7 +11,7 @@
 <!-- Script to put CSS on body and hide the left Nav Menu-->
 <script>
     $(document).ready(function(){
-        $("body").css({"background-image": "url(\"/auditmgmt/img/wall-1.jpg\")", "background-repeat": "no-repeat", "background-size" : "100%"});
+        $("body").css({"background-image": "url(\"/<?php echo $root?>/img/wall-1.jpg\")", "background-repeat": "no-repeat", "background-size" : "100%"});
         $("#menu-toggle").trigger( "click" );
     });
 </script>
@@ -29,7 +29,7 @@
                             <div class="row">
                                 <div class="center-block">
                                     <img class="profile-img"
-                                         src="/auditmgmt/img/photo-bot.png" alt="">
+                                         src="/<?php echo $root?>/img/photo-bot.png" alt="">
                                 </div>
                             </div>
                             <div class="row">
@@ -48,6 +48,23 @@
 													<i class="glyphicon glyphicon-lock"></i>
 												</span>
                                             <input class="form-control" placeholder="Password" name="password" type="password" value="" required="required">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+												<span class="input-group-addon">
+													<i class="glyphicon glyphicon-globe"></i>
+												</span>
+                                            <!--<input class="form-control" name="team" type="password" value="" required="required">-->
+                                            <!--<label for="team">Select Team</label>-->
+                                            <select class="form-control" name="team">
+                                                <option>Lara Cargo</option>
+                                                <option>Lara UAT</option>
+                                                <option>Engine/ODI</option>
+                                                <option>Setup/Treasury</option>
+                                                <option>Oebs</option>
+                                                <option>Diva</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">

@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="form-group">
-                        <?php echo $this->Form->input('accessid', array('label'=>'Access ID<span class="mandatory">*</span>', 'class'=>'form-control', 'readonly'=>'true')); ?>
+                        <?php echo $this->Form->input('access_detail_id', array('label'=>'Access ID<span class="mandatory">*</span>', 'class'=>'form-control', 'readonly'=>'true', 'type'=>'text')); ?>
                     </div>
                     <div class="form-group">
                         <?php echo $this->Form->input('month', array('label'=>'Audited Month<span class="mandatory">*</span>', 'class'=>'form-control', 'options'=>$auditMonth)); ?>

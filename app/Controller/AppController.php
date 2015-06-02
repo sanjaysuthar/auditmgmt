@@ -52,7 +52,8 @@ class AppController extends Controller {
         $auditStatus = array('Success'=>'Success', 'Failed'=>'Failed');
         $auditMonth = array('1'=>'Jan', '2'=>'Feb', '3'=>'March', '4'=>'April', '5'=>'May', '6'=>'June', '7'=>'July', '8'=>'Aug', '9'=>'Sep', '10'=>'Oct', '11'=>'Nov', '12'=>'Dec');
         $auditYear = array('2013'=>'2013', '2014'=>'2014', '2015'=>'2015', '2016'=>'2016', '2017'=>'2017');
-        $this->set(compact('environments', 'accessTypes', 'accessPrivileges', 'sysTypes', 'auditStatus', 'auditMonth', 'auditYear'));
+        $root = "auditmgmt";
+        $this->set(compact('root', 'environments', 'accessTypes', 'accessPrivileges', 'sysTypes', 'auditStatus', 'auditMonth', 'auditYear'));
     }
     /*public $helpers = array('Form' => array('className' => 'BootstrapForm'));*/
 }

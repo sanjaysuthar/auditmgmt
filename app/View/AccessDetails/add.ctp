@@ -17,7 +17,7 @@
                 <?php echo $this->Form->input('uploadexcelfile', array('type'=>'file', 'label'=>'Upload Excel')); ?>
             </span>
         <?php echo $this->Form->end(); ?>
-        <a href="/auditmgmt/AuditTemplate.xls" class="btn btn-info btn-sm pull-right btn-header">
+        <a href="/<?php echo $root?>/AuditTemplate.xls" class="btn btn-info btn-sm pull-right btn-header">
             <span class="glyphicon glyphicon-download-alt"></span> Excel Template
         </a>
         <!-- / Panel Header -->
@@ -25,6 +25,7 @@
     <div class="panel-body">
         <div class="col-md-12">
             <?php echo $this->Form->create('AccessDetail'); ?>
+            <?php echo $this->Form->input('team', array('value'=>$this->Session->read('team'), 'type'=>'hidden'));?>
             <div class="col-md-5">
                 <div class="form-group">
                     <?php echo $this->Form->input('uniqueid', array('label' => 'Unique ID<span class="mandatory">*</span>', 'class'=>'form-control mandatory', 'placeholder'=>'Ex: Incognitos'));?>

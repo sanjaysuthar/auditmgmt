@@ -23,6 +23,15 @@ class AccessDetailsController extends AppController {
  */
 	public $components = array('Paginator');
 
+    public function beforefilter() {
+        parent::beforeFilter();
+        //session check
+        if($this->Session->read('user') == null){
+            $this->redirect(array('controller' => 'login', 'action' => 'index'));
+        }
+
+    }
+
 /**
  * index method
  *
@@ -30,7 +39,10 @@ class AccessDetailsController extends AppController {
  */
 	public function index() {
 		$this->AccessDetail->recursive = 0;
-		$this->set('accessDetails', $this->AccessDetail->find('all'));
+        $team = $this->Session->read('team');
+		$this->set('accessDetails', $this->AccessDetail->find('all', array(
+                                        'conditions' => array('AccessDetail.Team' => $team)
+                                         )));
 	}
 
     /**
@@ -44,11 +56,13 @@ class AccessDetailsController extends AppController {
         //starting with 2, 1 is header skipping it, all index for excel starts with 1
         $rowindex = 2;
         $arrindex = 0;
+        $team = $this->Session->read("team");
         while($excelData->value($rowindex, 1) != '') {
             //accessid is auto increment
             $accessDetailsModel['AccessDetail'][$arrindex]['uniqueid'] = $excelData->value($rowindex, 1);
             $accessDetailsModel['AccessDetail'][$arrindex]['fname'] = $excelData->value($rowindex, 2);
             $accessDetailsModel['AccessDetail'][$arrindex]['lname'] = $excelData->value($rowindex, 3);
+            $accessDetailsModel['AccessDetail'][$arrindex]['team'] = $team;
             $accessDetailsModel['AccessDetail'][$arrindex]['systype'] = $excelData->value($rowindex, 4);
             $accessDetailsModel['AccessDetail'][$arrindex]['sysname'] = $excelData->value($rowindex, 5);
             $accessDetailsModel['AccessDetail'][$arrindex]['env'] = $excelData->value($rowindex, 6);
@@ -155,13 +169,14 @@ class AccessDetailsController extends AppController {
         if($perc == null) {
             throw new NotFoundException(__('Percentage Missing'));
         }
+        $team = $this->Session->read('team');
         //setting to be visible on UI side
         $this->set(compact('perc'));
         $perc = $perc / 100;
-        $percentage = $this->AccessDetail->query("SELECT ROUND((SELECT count(*) FROM access_details) * ". $perc.", 0) AS Percentage FROM DUAL");
+        $percentage = $this->AccessDetail->query("SELECT ROUND((SELECT count(*) FROM access_details WHERE team = '".$team."') * ". $perc.", 0) AS Percentage FROM DUAL");
         //debug($percentage[0][0]['Percentage']);
         $this->Paginator->settings = array(
-            'conditions' => array('1'=>'1=1'
+            'conditions' => array('1'=>'1=1', 'AccessDetail.Team' => $team
             ),
             'fields' => array('AccessDetail.*','lad.latest_audit_month','lad.latest_audit_year'),
             'joins'      => array(

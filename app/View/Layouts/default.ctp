@@ -47,11 +47,11 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		echo $this->fetch('script');
 	?>
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
-    <script src="/auditmgmt/js/jquery.min.js"></script>
-    <script src="/auditmgmt/js/bootstrap-table.js"></script>
-    <script src="/auditmgmt/js/tableExport.js"></script>
-    <script src="/auditmgmt/js/jquery.base64.js"></script>
-    <script src="/auditmgmt/js/bootstrap-table-export.js"></script>
+    <script src="/<?php echo $root?>/js/jquery.min.js"></script>
+    <script src="/<?php echo $root?>/js/bootstrap-table.js"></script>
+    <script src="/<?php echo $root?>/js/tableExport.js"></script>
+    <script src="/<?php echo $root?>/js/jquery.base64.js"></script>
+    <script src="/<?php echo $root?>/js/bootstrap-table-export.js"></script>
 </head>
 <body>
 <!-- Main Header -->
@@ -70,14 +70,29 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <img src="/auditmgmt/img/audit-icon-3.png" width="40" height="40" class="pull-left" style="margin-top: 4px"/>
-                <a class="navbar-brand" href="/auditmgmt/accessdetails">&nbsp;&nbsp;<b>THRUST</b> : The Audit Management Tool</a>
+                <img src="/<?php echo $root?>/img/audit-icon-3.png" width="40" height="40" class="pull-left" style="margin-top: 4px"/>
+                <a class="navbar-brand" href="/<?php echo $root?>/accessdetails">&nbsp;&nbsp;<b>THRUST</b> : The Audit Management Tool
+                    <!-- Print Team Name -->
+                    <span style="color: lightgreen">
+                       <?php
+                        $team = $this->Session->read('team');
+                        if($team != null)
+                            echo $team;
+                       ?>
+                    </span>
+                </a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">Dashboard</a></li>
                     <li><a href="#">Settings</a></li>
                     <li><a href="#">Help</a></li>
+                    <!-- Print Logout Button -->
+                    <?php
+                        $user = $this->Session->read("user");
+                        if($user != null)
+                            echo "<li><a href=\"/".$root."/login/logout\">Logout</a></li>";
+                    ?>
                 </ul>
             </div>
         </div>
@@ -88,8 +103,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
-                <li><a href="/auditmgmt/AccessDetails">Access Details</a></li><!--class="sidebar-brand"-->
-                <li><a href="/auditmgmt/AuditDetails">Audits</a></li>
+                <li><a href="/<?php echo $root?>/AccessDetails">Access Details</a></li><!--class="sidebar-brand"-->
+                <li><a href="/<?php echo $root?>/AuditDetails">Audits</a></li>
                 <li><a href="#">Analytics</a></li>
                 <li><a href="#">Export</a></li>
             </ul>
@@ -117,11 +132,11 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 
-    <script src="/auditmgmt/js/bootstrap.min.js"></script>
-    <script src="/auditmgmt/js/docs.min.js"></script>
+    <script src="/<?php echo $root?>/js/bootstrap.min.js"></script>
+    <script src="/<?php echo $root?>/js/docs.min.js"></script>
 
-    <script src="/auditmgmt/js/fileinput.js"></script>
-    <script src="/auditmgmt/js/auditmgmt.js"></script>
+    <script src="/<?php echo $root?>/js/fileinput.js"></script>
+    <script src="/<?php echo $root?>/js/auditmgmt.js"></script>
     <!-- Toggle menu script for sidebar -->
     <script>
         $("#menu-toggle").click(function(e) {

@@ -24,6 +24,14 @@ class AuditDetailsController extends AppController {
  */
 	public $components = array('Paginator');
 
+    public function beforefilter() {
+        parent::beforeFilter();
+        //session check
+        if($this->Session->read('user') == null){
+            $this->redirect(array('controller' => 'login', 'action' => 'index'));
+        }
+    }
+
 /**
  * index method
  *
@@ -31,7 +39,11 @@ class AuditDetailsController extends AppController {
  */
 	public function index() {
 		$this->AuditDetail->recursive = 0;
-		$this->set('auditDetails', $this->AuditDetail->find('all'));
+        $team = $this->Session->read('team');
+		$this->set('auditDetails', $this->AuditDetail->find('all', array(
+                                                        'contain' => array('AccessDetail'),
+                                                        'conditions' => array('AccessDetail.Team' => $team)
+                                            )));
 	}
 
 /**
@@ -64,7 +76,7 @@ class AuditDetailsController extends AppController {
         if (!$this->AccessDetail->exists($accessid)) {
             throw new NotFoundException(__('Invalid access detail'));
         } else {
-            $this->request->data['AuditDetail']['accessid'] = $accessid;
+            $this->request->data['AuditDetail']['access_detail_id'] = $accessid;
         }
 		if ($this->request->is('post')) {
             // Initialize filename-variable

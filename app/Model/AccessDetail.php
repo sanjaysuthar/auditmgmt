@@ -14,6 +14,9 @@ App::uses('AppModel', 'Model');
  */
 class AccessDetail extends AppModel {
 
+    public $actsAs = array('Containable');
+    public $hasMany = array('AuditDetail');
+
 /**
  * Primary key field
  *
