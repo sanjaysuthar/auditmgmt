@@ -43,6 +43,8 @@ App::import('Vendor', 'php-excel-reader/excel_reader2');
 class AppController extends Controller {
     public static $appuserid = 'admin';
     public static $apppassword = 'admin';
+    public static $ActivateUserStatus = 1;
+    public static $DeactivateUserStatus = 0;
 
     public function beforeFilter() {
         $environments = array('DEV/CMAD'=>'DEV/CMAD','INT/CMAQ'=>'INT/CMAQ', 'UAT/QUA'=>'UAT/QUA','PREPROD/TST'=>'PREPROD/TST', 'PROD'=>'PROD');

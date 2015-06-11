@@ -42,7 +42,7 @@ class AuditDetailsController extends AppController {
         $team = $this->Session->read('team');
 		$this->set('auditDetails', $this->AuditDetail->find('all', array(
                                                         'contain' => array('AccessDetail'),
-                                                        'conditions' => array('AccessDetail.Team' => $team)
+                                                        'conditions' => array('AccessDetail.Team' => $team, 'AccessDetail.Status' => AppController::$ActivateUserStatus)
                                             )));
 	}
 

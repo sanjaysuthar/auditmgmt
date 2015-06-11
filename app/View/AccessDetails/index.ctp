@@ -4,20 +4,32 @@
  * 
  * @author: SANJAY SUTHAR
  * @email:  ss2445@gmail.com
- * @version:	1.0
+ * @version:	2.0
  * @since:	v1.0
  */
  -->
 <div class="panel panel-default">
     <div class="panel-heading">
         <!-- Panel Header -->
-        <b>Access Detail</b>
-        <a href="AccessDetails/add" class="btn btn-success btn-sm pull-right" style="margin-top: -5px;">
+        <a href="/<?php echo $root?>/AccessDetails/add" class="btn btn-success btn-sm pull-right" style="margin-top: -5px;">
             <span class="glyphicon glyphicon-plus"></span> Add
         </a>
-        <a href="AccessDetails/autosuggest/20" class="btn btn-info btn-sm pull-right" style="margin-top: -5px; margin-right: 10px;">
+        <a href="/<?php echo $root?>/AccessDetails/autosuggest/20" class="btn btn-info btn-sm pull-right" style="margin-top: -5px; margin-right: 10px;">
             <span class="glyphicon glyphicon-tasks"></span> Auto Suggest for Audit
         </a>
+
+        <ul class="legend">
+            <li>
+                <b>Access Detail
+                    <!-- extra text to print if accessing for a particular user -->
+                    <?php if(isset($this->params['pass'][0]))
+                    echo "of ".$this->params['pass'][0] ?>
+                </b>
+            </li>
+
+            <li class="pull-right"><span class="deactivated"></span> Not Audited</li>
+            <li class="pull-right"><span class="activated"></span> Audited</li>
+        </ul>
         <!-- / Panel Header -->
     </div>
     <div class="panel-body">
@@ -33,6 +45,7 @@
                    data-show-pagination-switch="true"
                    data-pagination="true"
                    data-side-pagination="client"
+                   data-row-style="rowStyle"
                    data-page-list="[5, 10, 20, 50, 100, 200]">
                 <thead>
                     <tr class="table-header">
@@ -46,6 +59,9 @@
                         <th data-sortable="true"><?php echo h('Type'); ?></th>
                         <th data-sortable="true"><?php echo h('Privilege'); ?></th>
                         <th data-sortable="true"><?php echo h('Assigned ID'); ?></th>
+                        <th data-sortable="true"><?php echo h('Last Audited Month'); ?></th>
+                        <th data-sortable="true"><?php echo h('Year'); ?></th>
+                        <th data-sortable="true" data-visible="false" data-switchable="false"><?php echo h('AuditedFlag'); ?></th>
                         <th class="actions" data-switchable="false"><?php echo __('Actions'); ?></th>
                     </tr>
                 </thead>
@@ -62,6 +78,16 @@
                             <td><?php echo h($accessDetail['AccessDetail']['acctype']); ?>&nbsp;</td>
                             <td><?php echo h($accessDetail['AccessDetail']['accprivilege']); ?>&nbsp;</td>
                             <td><?php echo h($accessDetail['AccessDetail']['accidassigned']); ?>&nbsp;</td>
+                            <td><?php
+                                    if(!empty($accessDetail['lad']['latest_audit_month'])) {
+                                        $dateObj   = DateTime::createFromFormat('!m', $accessDetail['lad']['latest_audit_month']);
+                                        $monthName = $dateObj->format('M'); //F for full format
+                                            echo h($monthName);
+                                    }
+                                 ?>&nbsp;
+                            </td>
+                            <td><?php echo h($accessDetail['lad']['latest_audit_year']); ?>&nbsp;</td>
+                            <td><?php echo h(AccessDetailsController::auditStatusFlagConverter($accessDetail['lad']['latest_audit_year'])); ?></td>
                             <td class="actions">
                                 <?php echo $this->Html->link(__(''), array('action' => 'edit', $accessDetail['AccessDetail']['accessid']), array('class' => 'glyphicon glyphicon-edit','title'=>'Edit')); ?>
                                 <?php echo $this->Form->postLink(__(''), array('action' => 'delete', $accessDetail['AccessDetail']['accessid']), array('class' => 'glyphicon glyphicon-trash','title'=>'Delete'), __('Are you sure you want to delete # %s?', $accessDetail['AccessDetail']['accessid'])); ?>
@@ -74,3 +100,19 @@
         </div>
     </div>
 </div>
+<!-- Scripts All custom page related scripts goes below this -->
+<script type="text/javascript">
+    function rowStyle(row, index) {
+        var classes = ['active', 'success', 'info', 'warning', 'danger'];
+        if(row[12] == '1') {
+            return {
+                classes: classes[1]
+            };
+        } else {
+            return {
+                classes: classes[4]
+            };
+        }
+    }
+</script>
+<!-- / Scripts -->

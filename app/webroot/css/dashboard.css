@@ -179,3 +179,15 @@ body {
     -webkit-border-radius: 50%;
     border-radius: 50%;
 }
+
+/**
+ * List Users Page Legend CSS
+ */
+/* basic positioning */
+.legend { list-style: none; margin-left: -40px; margin-bottom: 20px;}
+.legend li { float: left; margin-right: 10px; }
+/*.legend span { border: 1px solid #ccc; float: left; width: 12px; height: 12px; margin: 2px; }*/
+.legend span {float: left; width: 12px; height: 12px; margin: 2px; }
+/* your colors */
+.legend .activated { background-color: #dff0d8; }
+.legend .deactivated { background-color: #f2dede; }

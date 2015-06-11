@@ -4,14 +4,18 @@
  * 
  * @author: SANJAY SUTHAR
  * @email:  ss2445@gmail.com
- * @version:	1.0
+ * @version:	2.0
  * @since:	v1.0
  */
  -->
 <div class="panel panel-default">
     <div class="panel-heading">
         <!-- Panel Header -->
-        <b>All Audits</b>
+        <ul class="legend">
+            <li><b>All Audits</b></li>
+            <li class="pull-right"><span class="deactivated"></span> Failed</li>
+            <li class="pull-right"><span class="activated"></span> Success</li>
+        </ul>
         <!-- / Panel Header -->
     </div>
     <div class="panel-body">
@@ -40,8 +44,8 @@
                     <th data-sortable="true"><?php echo h('Remarks'); ?></th>
                     <th><?php echo h('Evidences'); ?></th>
 
-                    
-                    <th data-sortable="true"><?php echo h('UID'); ?></th>
+
+                    <!--<th data-sortable="true"><?php echo h('UID'); ?></th>-->
                     <th data-sortable="true"><?php echo h('Name'); ?></th>
                     <th data-sortable="true" data-visible="false"><?php echo h('Sys Type'); ?></th>
                     <th data-sortable="true"><?php echo h('Sys Name'); ?></th>
@@ -80,7 +84,7 @@
                     </td>
 
 
-                    <td><?php echo h($auditDetail['AccessDetail']['uniqueid']); ?>&nbsp;</td>
+                    <!--<td><?php echo h($auditDetail['AccessDetail']['uniqueid']); ?>&nbsp;</td>-->
                     <td><?php echo h($auditDetail['AccessDetail']['fname'] . " " . $auditDetail['AccessDetail']['lname']); ?>&nbsp;</td>
                     <td><?php echo h($auditDetail['AccessDetail']['systype']); ?>&nbsp;</td>
                     <td><?php echo h($auditDetail['AccessDetail']['sysname']); ?>&nbsp;</td>
@@ -107,7 +111,7 @@
         var classes = ['active', 'success', 'info', 'warning', 'danger'];
         if(row[2] == 'Success') {
             return {
-                classes: classes[2]
+                classes: classes[1]
             };
         } else {
             return {

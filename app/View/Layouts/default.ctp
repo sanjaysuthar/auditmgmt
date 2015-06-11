@@ -84,7 +84,11 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Dashboard</a></li>
+                    <?php
+                        $user = $this->Session->read("user");
+                        if($user != null)
+                            echo "<li><a href=\"/".$root."/AccessDetails/listusers\">Dashboard</a></li>";
+                    ?>
                     <li><a href="#">Settings</a></li>
                     <li><a href="#">Help</a></li>
                     <!-- Print Logout Button -->
