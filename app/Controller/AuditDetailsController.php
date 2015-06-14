@@ -93,10 +93,10 @@ class AuditDetailsController extends AppController {
             //Now Save in DB
 			$this->AuditDetail->create();
 			if ($this->AuditDetail->save($this->request->data)) {
-				$this->Session->setFlash(__('The audit detail has been saved.'));
+				$this->setFlash('The audit detail has been saved.', AppController::$SUCCESS);
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__(AppController::$errorMessage));
+                $this->setFlash(AppController::$errorMessage, AppController::$DANGER);
 			}
 		}
 	}
@@ -113,10 +113,10 @@ class AuditDetailsController extends AppController {
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->AuditDetail->save($this->request->data)) {
-				$this->Session->setFlash(__('The audit detail has been saved.'));
+				$this->setFlash('The audit detail has been saved.', AppController::$SUCCESS);
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__(AppController::$errorMessage));
+                $this->setFlash(AppController::$errorMessage, AppController::$DANGER);
 			}
 		} else {
 			$options = array('conditions' => array('AuditDetail.' . $this->AuditDetail->primaryKey => $id));
@@ -137,10 +137,10 @@ class AuditDetailsController extends AppController {
 		}
 		$this->request->allowMethod('post', 'delete');
 		if ($this->AuditDetail->delete()) {
-			$this->Session->setFlash(__('The audit detail has been deleted.'));
+			$this->setFlash('The audit detail has been deleted.', AppController::$SUCCESS);
 		} else {
-			$this->Session->setFlash(__(AppController::$errorMessage));
-		}
+            $this->setFlash(AppController::$errorMessage, AppController::$DANGER);
+        }
 		return $this->redirect(array('action' => 'index'));
 	}
 

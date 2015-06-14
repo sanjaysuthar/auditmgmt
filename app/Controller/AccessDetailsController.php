@@ -49,10 +49,10 @@ class AccessDetailsController extends AppController {
             }
             $accessDetailEntity['AccessDetail'] = $entity;
             if ($this->AccessDetail->save($accessDetailEntity)) {
-                $this->Session->setFlash(__('Success'));
+                $this->setFlash('Successfully done!!', AppController::$SUCCESS);
             } else {
-                $this->Session->setFlash(__('Something went wrong, Contact Sanjay.'));
-                throw new FatalErrorException(__('Something went wrong, Contact Sanjay.'));
+                $this->setFlash(AppController::$errorMessage, AppController::$DANGER);
+                throw new FatalErrorException(__(AppController::$invalidRequestMessage));
                 break;
             }
         }
@@ -69,7 +69,7 @@ class AccessDetailsController extends AppController {
         $record = $this->AccessDetail->find('first', $options);
         //check so that user can only edit own team data, not others
         if(empty($record)) {
-            throw new NotFoundException(__('Invalid request!'));
+            throw new NotFoundException(__(AppController::$invalidRequestMessage));
         }
         return $record;
     }
@@ -125,6 +125,7 @@ class AccessDetailsController extends AppController {
                     ),
                 )
             );
+            $this->setFlash('Access Details of '.$uid, AppController::$INFO);
         }
         $accessDetails = $this->Paginator->paginate('AccessDetail', array(), array());
         $this->set(compact('accessDetails'));
@@ -161,9 +162,9 @@ class AccessDetailsController extends AppController {
             $accessDetailEntity['AccessDetail'] = $value;
             $this->AccessDetail->create();
             if ($this->AccessDetail->save($accessDetailEntity)) {
-                $this->Session->setFlash(__('Successfully uploaded from excel.'));
+                $this->setFlash('Successfully uploaded from excel.', AppController::$SUCCESS);
             } else {
-                $this->Session->setFlash(__(AppController::$errorMessage));
+                $this->setFlash(AppController::$errorMessage, AppController::$DANGER);
                 break;
             }
         }
@@ -178,10 +179,10 @@ class AccessDetailsController extends AppController {
 		if ($this->request->is('post')) {
 			$this->AccessDetail->create();
 			if ($this->AccessDetail->save($this->request->data)) {
-				$this->Session->setFlash(__('The access detail has been saved.'));
+				$this->setFlash('The access detail has been saved.', AppController::$SUCCESS);
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__(AppController::$errorMessage));
+                $this->setFlash(AppController::$errorMessage, AppController::$DANGER);
 			}
 		}
 	}
@@ -196,10 +197,10 @@ class AccessDetailsController extends AppController {
         $record = $this->validateAccessId($id);
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->AccessDetail->save($this->request->data)) {
-				$this->Session->setFlash(__('The access detail has been saved.'));
+				$this->setFlash('The access detail has been saved.', AppController::$SUCCESS);
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__(AppController::$errorMessage));
+                $this->setFlash(AppController::$errorMessage, AppController::$DANGER);
 			}
 		} else {
 			$this->request->data = $record;
@@ -218,9 +219,9 @@ class AccessDetailsController extends AppController {
 
 		$this->request->allowMethod('post', 'delete');
 		if ($this->AccessDetail->delete()) {
-			$this->Session->setFlash(__('The access detail has been deleted.'));
+			$this->setFlash('The access detail has been deleted.', AppController::$SUCCESS);
 		} else {
-			$this->Session->setFlash(__(AppController::$errorMessage));
+            $this->setFlash(AppController::$errorMessage, AppController::$DANGER);
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
@@ -260,6 +261,7 @@ class AccessDetailsController extends AppController {
         );
         $accessDetails = $this->Paginator->paginate('AccessDetail', array(), array('lad.latest_audit_year', 'lad.latest_audit_month'));
         //debug($accessDetails);
+        $this->setFlash('Auto Suggesting '.($perc*100).'% from All Access Details.', AppController::$INFO);
         $this->set(compact('accessDetails'));
     }
 
@@ -289,7 +291,7 @@ class AccessDetailsController extends AppController {
             return $this->redirect(array('action' => 'index'));
         }
         $this->manageuser(AppController::$DeactivateUserStatus, $uid);
-        $this->Session->setFlash(__('Successfully Deactivated User and all the Access.'));
+        $this->setFlash('Successfully Deactivated User and all the Access.', AppController::$SUCCESS);
         return $this->redirect(array('action' => 'listusers'));
     }
 
@@ -302,7 +304,7 @@ class AccessDetailsController extends AppController {
             return $this->redirect(array('action' => 'index'));
         }
         $this->manageuser(AppController::$ActivateUserStatus, $uid);
-        $this->Session->setFlash(__('Successfully Activated User and all the Access.'));
+        $this->setFlash('Successfully Activated User and all the Access.', AppController::$SUCCESS);
         return $this->redirect(array('action' => 'listusers'));
     }
 

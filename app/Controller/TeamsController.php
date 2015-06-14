@@ -42,12 +42,12 @@ class TeamsController extends AppController {
     public function add() {
         if ($this->request->is('post')) {
             if ($this->Team->save($this->request->data)) {
-                $this->Session->setFlash(__('New Team has been created.'));
+                $this->setFlash('New Team has been created.', AppController::$SUCCESS);
                 //Since we have altered teamList hence, destroying teamList from session so that it can be reloaded from db
                 $this->Session->delete('teamList');
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__(AppController::$errorMessage));
+                $this->setFlash(AppController::$errorMessage, AppController::$DANGER);
             }
         }
     }
@@ -71,15 +71,15 @@ class TeamsController extends AppController {
     public function delete($id = null){
         $this->Team->id = $id;
         if (!$this->Team->exists()) {
-            throw new NotFoundException(__('Invalid request'));
+            throw new NotFoundException(__(AppController::$invalidRequestMessage));
         }
         $this->request->allowMethod('post', 'delete');
         if ($this->Team->delete()) {
-            $this->Session->setFlash(__('Team has been deleted. All associated users are now deactivated!'));
+            $this->setFlash('Team has been deleted. All associated users are now deactivated!', AppController::$INFO);
             //Since we have altered teamList hence, destroying teamList from session so that it can be reloaded from db
             $this->Session->delete('teamList');
         } else {
-            $this->Session->setFlash(__(AppController::$errorMessage));
+            $this->setFlash(AppController::$errorMessage, AppController::$DANGER);
         }
         return $this->redirect(array('action' => 'index'));
     }

@@ -70,13 +70,14 @@ class UsersController extends AppController {
                     if($this->Auth->user('role') == 'admin') {
                         $this->getPasswordResetRequests();
                     }
+                    $this->setFlash('Login Success!!', AppController::$INFO);
                     return $this->redirect($this->Auth->redirectUrl());
                 } else {
                     //if failed to validate team, immediately logout the Auth component
                     $this->Auth->logout();
                 }
             }
-            //$this->Session->setFlash(__('Invalid username or password, try again'));
+            $this->setFlash('Invalid username or password, try again', AppController::$WARNING);
         }
     }
 
@@ -103,7 +104,7 @@ class UsersController extends AppController {
                 $record['User']['forgot_flag'] = '1';
                 $this->User->save($record, array('validate'=>false));
             }
-            $this->Session->setFlash(__('Request has been send to Admin, If there is a match with User ID.'));
+            $this->setFlash('Request has been send to Admin, If there is a match with User ID.', AppController::$INFO);
             $this->redirect(array('action' => 'login'));
         }
     }
@@ -116,10 +117,10 @@ class UsersController extends AppController {
     public function changePassword() {
         if ($this->request->is(array('post', 'put'))) {
             if ($this->User->save($this->request->data)) {
-                $this->Session->setFlash(__('Password changed Successfully.'));
+                $this->setFlash('Password changed Successfully.', AppController::$SUCCESS);
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__(AppController::$errorMessage));
+                $this->setFlash(AppController::$errorMessage, AppController::$DANGER);
             }
         } else {
             $options = array('conditions' => array('User.' . $this->User->primaryKey => $this->Auth->user('id')));
@@ -140,10 +141,10 @@ class UsersController extends AppController {
     public function add() {
         if ($this->request->is('post')) {
             if ($this->User->save($this->request->data)) {
-                $this->Session->setFlash(__('New User has been Created!'));
+                $this->setFlash('New User has been Created!', AppController::$SUCCESS);
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__(AppController::$errorMessage));
+                $this->setFlash(AppController::$errorMessage, AppController::$DANGER);
             }
         }
     }
@@ -168,14 +169,14 @@ class UsersController extends AppController {
      */
     public function edit($id = null) {
         if (!$this->User->exists($id)) {
-            throw new NotFoundException(__('Invalid request'));
+            throw new NotFoundException(__(AppController::$invalidRequestMessage));
         }
         if ($this->request->is(array('post', 'put'))) {
             if ($this->User->save($this->request->data)) {
-                $this->Session->setFlash(__('User details has been saved.'));
+                $this->setFlash('User details has been saved.', AppController::$SUCCESS);
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__(AppController::$errorMessage));
+                $this->setFlash(AppController::$errorMessage, AppController::$DANGER);
             }
         } else {
             $options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
@@ -193,13 +194,13 @@ class UsersController extends AppController {
     public function delete($id = null) {
         $this->User->id = $id;
         if (!$this->User->exists()) {
-            throw new NotFoundException(__('Invalid request'));
+            throw new NotFoundException(__(AppController::$invalidRequestMessage));
         }
         $this->request->allowMethod('post', 'delete');
         if ($this->User->delete()) {
-            $this->Session->setFlash(__('User has been deleted.'));
+            $this->setFlash('User has been deleted.', AppController::$SUCCESS);
         } else {
-            $this->Session->setFlash(__(AppController::$errorMessage));
+            $this->setFlash(AppController::$errorMessage, AppController::$DANGER);
         }
         return $this->redirect(array('action' => 'index'));
     }
@@ -212,17 +213,17 @@ class UsersController extends AppController {
      */
     public function resetPassword($id = null) {
         if (!$this->User->exists($id)) {
-            throw new NotFoundException(__('Invalid request'));
+            throw new NotFoundException(__(AppController::$invalidRequestMessage));
         }
         if ($this->request->is(array('post', 'put'))) {
             $this->request->data['User']['forgot_flag'] = 0;
             if ($this->User->save($this->request->data)) {
-                $this->Session->setFlash(__('Password Reset Successfully.'));
+                $this->setFlash('Password Reset Successfully.', AppController::$SUCCESS);
                 //reloading password reset requests
                 $this->getPasswordResetRequests();
                 return $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__(AppController::$errorMessage));
+                $this->setFlash(AppController::$errorMessage, AppController::$DANGER);
             }
         } else {
             $options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
@@ -252,9 +253,9 @@ class UsersController extends AppController {
         $user['Teams'] = $record['Team'];
         $user['teams_id'] = $id;
         if($this->Session->write('Auth.User', $user)){
-            $this->Session->setFlash(__('Logged in as '.$this->getUserTeam().' Team'));
+            $this->setFlash('Logged in as '.$this->getUserTeam().' Team', AppController::$SUCCESS);
         } else {
-            $this->Session->setFlash(__(AppController::$errorMessage));
+            $this->setFlash(AppController::$errorMessage, AppController::$DANGER);
         }
         return $this->redirect(array('controller'=>'teams', 'action' => 'index'));
     }

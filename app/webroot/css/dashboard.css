@@ -196,3 +196,13 @@ body {
 .error-message {
     color: red;
 }
+
+/**
+ * Custom Flash Message
+ */
+.alert {
+    padding: 8px 15px 8px 14px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}

@@ -46,6 +46,11 @@ class AppController extends Controller {
     public static $DeactivateUserStatus = 0;
     public static $errorMessage = 'Did you really think you are allowed to see that?';//'Something went wrong! Pleas try again.';
     public static $invalidRequestMessage = 'Did you really think you are allowed to see that? Thanks to SANJAY for protecting all the URLs ;-)';
+    public static $SUCCESS = 'success';
+    public static $INFO = 'info';
+    public static $WARNING = 'warning';
+    public static $DANGER = 'danger';
+
 
     public $components = array(
         'Session',
@@ -76,7 +81,7 @@ class AppController extends Controller {
         $auditStatus = array('Success'=>'Success', 'Failed'=>'Failed');
         $auditMonth = array('1'=>'Jan', '2'=>'Feb', '3'=>'March', '4'=>'April', '5'=>'May', '6'=>'June', '7'=>'July', '8'=>'Aug', '9'=>'Sep', '10'=>'Oct', '11'=>'Nov', '12'=>'Dec');
         $auditYear = array('2013'=>'2013', '2014'=>'2014', '2015'=>'2015', '2016'=>'2016', '2017'=>'2017');
-        $root = "auditmgmt";
+        $root = "auditmgmtdev";
         $teamList = $this->getTeamDetails();
         $this->set(compact('root', 'environments', 'accessTypes', 'accessPrivileges', 'sysTypes', 'auditStatus', 'auditMonth', 'auditYear', 'teamList'));
     }
@@ -146,7 +151,7 @@ class AppController extends Controller {
             if(array_key_exists($id, $teamList)) {
                 return $teamList[$id];
             } else {
-                throw new NotFoundException(__('Invalid request'));
+                throw new NotFoundException(__(AppController::$invalidRequestMessage));
             }
         }
     }
@@ -162,5 +167,29 @@ class AppController extends Controller {
         }
         // Default deny
         return false;
+    }
+
+    /**
+     * Set Custom FLash Message based on Various CSS Classes
+     * @param $message
+     * @param $type
+     */
+    public function setFlash($message, $type){
+        switch ($type) {
+            case AppController::$SUCCESS:
+                $this->Session->setFlash($message, 'flash-success');
+                break;
+            case AppController::$INFO:
+                $this->Session->setFlash($message, 'flash-info');
+                break;
+            case AppController::$WARNING:
+                $this->Session->setFlash($message, 'flash-warning');
+                break;
+            case AppController::$DANGER:
+                $this->Session->setFlash($message, 'flash-danger');
+                break;
+            default:
+                $this->Session->setFlash($message, 'flash-warning');
+        }
     }
 }
