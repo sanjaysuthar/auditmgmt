@@ -2,9 +2,9 @@
 /**
  * Thrust: The Audit Management Tool
  * 
- * @author: SANJAY SUTHAR
+ * @author: Sanjay Suthar
  * @email:  ss2445@gmail.com
- * @version:	1.0
+ * @version:	2.0
  * @since:	v1.0
  */
  
@@ -14,67 +14,46 @@ App::uses('AppController', 'Controller');
  *
  * @property AuditDetail $AuditDetail
  * @property PaginatorComponent $Paginator
+ * @author Sanjay Suthar
  */
 class AuditDetailsController extends AppController {
 
-/**
- * Components
- *
- * @var array
- */
+    /**
+     * Components
+     * @var array
+     */
 	public $components = array('Paginator');
 
     public function beforefilter() {
         parent::beforeFilter();
-        //session check
-        if($this->Session->read('user') == null){
-            $this->redirect(array('controller' => 'login', 'action' => 'index'));
-        }
     }
 
-/**
- * index method
- *
- * @return void
- */
-	public function index() {
+    /*
+     * All Public Functions below this
+     */
+
+    /**
+     * Default Action
+     * List All Audits for Logged in User
+     */
+    public function index() {
 		$this->AuditDetail->recursive = 0;
-        $team = $this->Session->read('team');
 		$this->set('auditDetails', $this->AuditDetail->find('all', array(
-                                                        'contain' => array('AccessDetail'),
-                                                        'conditions' => array('AccessDetail.Team' => $team, 'AccessDetail.Status' => AppController::$ActivateUserStatus)
-                                            )));
+                                        'contain' => array('AccessDetail'),
+                                        'conditions' => array('AccessDetail.Team' => $this->getUserTeam(), 'AccessDetail.Status' => AppController::$ActivateUserStatus)
+                            )));
 	}
 
-/**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	/*public function view($id = null) {
-		if (!$this->AuditDetail->exists($id)) {
-			throw new NotFoundException(__('Invalid audit detail'));
-		}
-		$options = array('conditions' => array('AuditDetail.' . $this->AuditDetail->primaryKey => $id));
-		$this->set('auditDetail', $this->AuditDetail->find('first', $options));
-
-        $d = $this->AuditDetail->find('first', $options);
-
-        debug($d['AuditDetail']['evidence2']['type']);
-	}*/
-
-/**
- * add method
- *
- * @return void
- */
-	public function add($accessid = null) {
+    /**
+     * Add New Audit Detail
+     * @param null $accessid
+     * @throws NotFoundException
+     */
+    public function add($accessid = null) {
         //Setting Access Id on Audit Page
         $this->loadModel('AccessDetail');
         if (!$this->AccessDetail->exists($accessid)) {
-            throw new NotFoundException(__('Invalid access detail'));
+            throw new NotFoundException(__(AppController::$invalidRequestMessage));
         } else {
             $this->request->data['AuditDetail']['access_detail_id'] = $accessid;
         }
@@ -117,28 +96,27 @@ class AuditDetailsController extends AppController {
 				$this->Session->setFlash(__('The audit detail has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The audit detail could not be saved. Please, try again.'));
+				$this->Session->setFlash(__(AppController::$errorMessage));
 			}
 		}
 	}
 
-/**
- * edit method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+    /**
+     * Edit an existing Audit Detail
+     * @throws NotFoundException
+     * @param string $id
+     * @return void
+     */
 	public function edit($id = null) {
 		if (!$this->AuditDetail->exists($id)) {
-			throw new NotFoundException(__('Invalid audit detail'));
+			throw new NotFoundException(__(AppController::$invalidRequestMessage));
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->AuditDetail->save($this->request->data)) {
 				$this->Session->setFlash(__('The audit detail has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The audit detail could not be saved. Please, try again.'));
+				$this->Session->setFlash(__(AppController::$errorMessage));
 			}
 		} else {
 			$options = array('conditions' => array('AuditDetail.' . $this->AuditDetail->primaryKey => $id));
@@ -146,29 +124,24 @@ class AuditDetailsController extends AppController {
 		}
 	}
 
-/**
- * delete method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+    /**
+     * Delete an Audit
+     * @throws NotFoundException
+     * @param string $id
+     * @return void
+     */
 	public function delete($id = null) {
 		$this->AuditDetail->id = $id;
 		if (!$this->AuditDetail->exists()) {
-			throw new NotFoundException(__('Invalid audit detail'));
+			throw new NotFoundException(__(AppController::$invalidRequestMessage));
 		}
 		$this->request->allowMethod('post', 'delete');
 		if ($this->AuditDetail->delete()) {
 			$this->Session->setFlash(__('The audit detail has been deleted.'));
 		} else {
-			$this->Session->setFlash(__('The audit detail could not be deleted. Please, try again.'));
+			$this->Session->setFlash(__(AppController::$errorMessage));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
 
-    public function temp() {
-
-
-    }
 }

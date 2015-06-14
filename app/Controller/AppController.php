@@ -2,9 +2,9 @@
 /**
  * Thrust: The Audit Management Tool
  * 
- * @author: SANJAY SUTHAR
+ * @author: Sanjay Suthar
  * @email:  ss2445@gmail.com
- * @version:	1.0
+ * @version:	2.0
  * @since:	v1.0
  */
  
@@ -41,10 +41,32 @@ App::import('Vendor', 'php-excel-reader/excel_reader2');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
-    public static $appuserid = 'admin';
-    public static $apppassword = 'admin';
+
     public static $ActivateUserStatus = 1;
     public static $DeactivateUserStatus = 0;
+    public static $errorMessage = 'Did you really think you are allowed to see that?';//'Something went wrong! Pleas try again.';
+    public static $invalidRequestMessage = 'Did you really think you are allowed to see that? Thanks to SANJAY for protecting all the URLs ;-)';
+
+    public $components = array(
+        'Session',
+        'Auth' => array(
+            'loginRedirect' => array(
+                'controller' => 'AccessDetails',
+                'action' => 'index'
+            ),
+            'logoutRedirect' => array(
+                'controller' => 'users',
+                'action' => 'login'
+            ),
+            'authError' => 'Did you really think you are allowed to see that?',
+            'authenticate' => array(
+                'Form' => array(
+                    'fields' => array('username' => 'userid', 'password' => 'secret'),
+                    'passwordHasher' => 'Blowfish'
+                )
+            )
+        )
+    );
 
     public function beforeFilter() {
         $environments = array('DEV/CMAD'=>'DEV/CMAD','INT/CMAQ'=>'INT/CMAQ', 'UAT/QUA'=>'UAT/QUA','PREPROD/TST'=>'PREPROD/TST', 'PROD'=>'PROD');
@@ -54,8 +76,91 @@ class AppController extends Controller {
         $auditStatus = array('Success'=>'Success', 'Failed'=>'Failed');
         $auditMonth = array('1'=>'Jan', '2'=>'Feb', '3'=>'March', '4'=>'April', '5'=>'May', '6'=>'June', '7'=>'July', '8'=>'Aug', '9'=>'Sep', '10'=>'Oct', '11'=>'Nov', '12'=>'Dec');
         $auditYear = array('2013'=>'2013', '2014'=>'2014', '2015'=>'2015', '2016'=>'2016', '2017'=>'2017');
-        $root = "auditmgmt";
-        $this->set(compact('root', 'environments', 'accessTypes', 'accessPrivileges', 'sysTypes', 'auditStatus', 'auditMonth', 'auditYear'));
+        $root = "auditmgmtdev";
+        $teamList = $this->getTeamDetails();
+        $this->set(compact('root', 'environments', 'accessTypes', 'accessPrivileges', 'sysTypes', 'auditStatus', 'auditMonth', 'auditYear', 'teamList'));
     }
-    /*public $helpers = array('Form' => array('className' => 'BootstrapForm'));*/
+
+    /*
+     * All Private/Protected Functions below this
+     */
+
+    /**
+     * Get All Team Details from db in order to display in various drop downs including login drop down, add user form
+     * Get and store in Session, in order to achieve performance
+     * @return mixed
+     */
+    private function getTeamDetails() {
+        //Check Session first for data existence
+        if($this->Session->read('teamList') == null) {
+            $teams = array();
+            $this->loadModel('Team');
+            $options = array('fields'=>'id, name');
+            //Unbind associated Model, we don't want User data here
+            $this->Team->unbindModel(
+                array('hasMany' => array('User'))
+            );
+            $teamsModel = $this->Team->find('all', $options);
+            foreach ($teamsModel as $teamEntity ) {
+                $teams[$teamEntity['Team']['id']] = $teamEntity['Team']['name'];
+            }
+            $this->Session->write('teamList', $teams);
+        }
+        return $this->Session->read('teamList');
+    }
+
+    /**
+     * Session check excluding login action
+     * @deprecated
+     */
+    private function checkSession() {
+        if(!($this->params['controller'] == 'users' && $this->params['action'] == 'login') && $this->Session->read('Auth.User') == null){
+            $this->Session->destroy();
+            $this->redirect(array('controller' => 'users', 'action' => 'login'));
+        }
+    }
+
+    /*
+     * All Public Functions below this
+     */
+
+    /**
+     * Get Team Name of Logged in User
+     * @return mixed
+     */
+    public function getUserTeam(){
+        if(!is_null($this->Session->read('Auth.User'))){
+            return $this->Session->read('Auth.User.Teams.name');
+        }
+    }
+
+    /**
+     * Fetch team name from team id
+     * @param $id
+     * @return mixed
+     * @throws NotFoundException
+     */
+    public function getTeamName($id) {
+        $teamList = $this->Session->read('teamList');
+        if($teamList != null) {
+            if(array_key_exists($id, $teamList)) {
+                return $teamList[$id];
+            } else {
+                throw new NotFoundException(__('Invalid request'));
+            }
+        }
+    }
+
+    /**
+     * Checking if User is Admin, Admin can access every action
+     * @param $user
+     * @return bool
+     */
+    public function isAuthorized($user) {
+        if (isset($user['role']) && $user['role'] === 'admin') {
+            return true;
+        }
+        // Default deny
+        return false;
+    }
 }

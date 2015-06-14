@@ -2,7 +2,7 @@
  /**
  * Thrust: The Audit Management Tool
  * 
- * @author: SANJAY SUTHAR
+ * @author: Sanjay Suthar
  * @email:  ss2445@gmail.com
  * @version:	1.0
  * @since:	v1.0

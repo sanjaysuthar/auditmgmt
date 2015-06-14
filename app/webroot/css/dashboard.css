@@ -1,9 +1,9 @@
 /**
  * Thrust: The Audit Management Tool
  * 
- * @author: SANJAY SUTHAR
+ * @author: Sanjay Suthar
  * @email:  ss2445@gmail.com
- * @version:	1.0
+ * @version:	2.0
  * @since:	v1.0
  */
  
@@ -160,7 +160,7 @@ body {
     color: #337ab7;
 }
 
-/**Login Panel CSS*/
+/**Users Panel CSS*/
 .panel-heading-login {
     padding: 5px 15px;
 }
@@ -190,4 +190,9 @@ body {
 .legend span {float: left; width: 12px; height: 12px; margin: 2px; }
 /* your colors */
 .legend .activated { background-color: #dff0d8; }
+.legend .activated-info { background-color: #d9edf7; }
 .legend .deactivated { background-color: #f2dede; }
+
+.error-message {
+    color: red;
+}

@@ -2,9 +2,9 @@
  /**
  * Thrust: The Audit Management Tool
  * 
- * @author: SANJAY SUTHAR
+ * @author: Sanjay Suthar
  * @email:  ss2445@gmail.com
- * @version:	1.0
+ * @version:	2.0
  * @since:	v1.0
  */
  -->
@@ -34,12 +34,13 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 col-md-10  col-md-offset-1 ">
+                                    <?php echo $this->Form->create('User'); ?>
                                     <div class="form-group">
                                         <div class="input-group">
 												<span class="input-group-addon">
 													<i class="glyphicon glyphicon-user"></i>
 												</span>
-                                            <input class="form-control" placeholder="Username" name="loginname" type="text" autofocus required="required">
+                                            <?php echo $this->Form->input('userid', array('label' => false,'class'=>'form-control', 'placeholder'=>'Username', 'required'=>'required', 'autofocus'));?>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -47,28 +48,19 @@
 												<span class="input-group-addon">
 													<i class="glyphicon glyphicon-lock"></i>
 												</span>
-                                            <input class="form-control" placeholder="Password" name="password" type="password" value="" required="required">
+                                            <?php echo $this->Form->input('secret', array('label' => false,'class'=>'form-control', 'placeholder'=>'Password', 'required'=>'required', 'type'=>'password'));?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group">
-												<span class="input-group-addon">
-													<i class="glyphicon glyphicon-globe"></i>
-												</span>
-                                            <!--<input class="form-control" name="team" type="password" value="" required="required">-->
-                                            <!--<label for="team">Select Team</label>-->
-                                            <select class="form-control" name="team">
-                                                <option>Lara Cargo</option>
-                                                <option>Lara UAT</option>
-                                                <option>Engine/ODI</option>
-                                                <option>Setup/Treasury</option>
-                                                <option>Oebs</option>
-                                                <option>Diva</option>
-                                            </select>
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-globe"></i>
+                                            </span>
+                                            <?php echo $this->Form->input('team', array('label' => false,'class'=>'form-control','options'=>$teamList));?>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign in">
+                                        <?php echo $this->Form->end(array('class'=>'btn btn-lg btn-primary btn-block', 'label'=>'Sign in'), __('Submit')); ?>
                                     </div>
                                 </div>
                             </div>
@@ -76,8 +68,9 @@
                     </form>
                 </div>
                 <div class="panel-footer panel-footer-login">
-                    <a href="#" onClick=""> Forgot Password </a>
+                    <a href="#" data-toggle="modal" data-target="#forgotPasswordModal">Forgot Password</a>
                 </div>
+                <?php echo $this->element('forgot-password-model');?>
             </div>
         </div>
     </div>

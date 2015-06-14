@@ -21,9 +21,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
  /**
  * Thrust: The Audit Management Tool
  * 
- * @author: SANJAY SUTHAR
+ * @author: Sanjay Suthar
  * @email:  ss2445@gmail.com
- * @version:	1.0
+ * @version:	2.0
  * @since:	v1.0
  */
  -->
@@ -72,12 +72,12 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 </button>
                 <img src="/<?php echo $root?>/img/audit-icon-3.png" width="40" height="40" class="pull-left" style="margin-top: 4px"/>
                 <a class="navbar-brand" href="/<?php echo $root?>/accessdetails">&nbsp;&nbsp;<b>THRUST</b> : The Audit Management Tool
-                    <!-- Print Team Name -->
+                    <!-- Print Teams Name for Admin-->
                     <span style="color: lightgreen">
                        <?php
-                        $team = $this->Session->read('team');
-                        if($team != null)
-                            echo $team;
+                        $team = $this->Session->read('Auth.User.Teams.name');
+                        if($team != null && $this->Session->read('Auth.User.role') == 'admin')
+                            echo 'Logged in As '.$team.' Team';
                        ?>
                     </span>
                 </a>
@@ -85,17 +85,19 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <?php
-                        $user = $this->Session->read("user");
-                        if($user != null)
-                            echo "<li><a href=\"/".$root."/AccessDetails/listusers\">Dashboard</a></li>";
+                        $user = $this->Session->read("Auth.User");
+                        if($user != null){
+                            echo "<li><a href=\"/".$root."/accessdetails/listusers\">Dashboard</a></li>";
+                            echo $this->element('settings-menu');
+                        }
                     ?>
-                    <li><a href="#">Settings</a></li>
+
                     <li><a href="#">Help</a></li>
                     <!-- Print Logout Button -->
                     <?php
-                        $user = $this->Session->read("user");
+                        $user = $this->Session->read("Auth.User");
                         if($user != null)
-                            echo "<li><a href=\"/".$root."/login/logout\">Logout</a></li>";
+                            echo "<li><a href=\"/".$root."/users/logout\">Logout</a></li>";
                     ?>
                 </ul>
             </div>
@@ -107,8 +109,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
-                <li><a href="/<?php echo $root?>/AccessDetails">Access Details</a></li><!--class="sidebar-brand"-->
-                <li><a href="/<?php echo $root?>/AuditDetails">Audits</a></li>
+                <li><a href="/<?php echo $root?>/accessdetails">Access Details</a></li><!--class="sidebar-brand"-->
+                <li><a href="/<?php echo $root?>/auditdetails">Audits</a></li>
                 <li><a href="#">Analytics</a></li>
                 <li><a href="#">Export</a></li>
             </ul>
@@ -129,7 +131,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         </div>
         <!-- /#page-content-wrapper -->
     </div>
-<!--<?php echo $this->element('sql_dump'); ?>-->
+<?php echo $this->element('sql_dump'); ?>
 <!-- / Main Wrapper for Page -->
 
 <!-- Bootstrap core JavaScript

@@ -2,7 +2,7 @@
  /**
  * Thrust: The Audit Management Tool
  * 
- * @author: SANJAY SUTHAR
+ * @author: Sanjay Suthar
  * @email:  ss2445@gmail.com
  * @version:	1.0
  * @since:	v1.0
@@ -25,10 +25,10 @@
     <div class="panel-body">
         <div class="col-md-12">
             <?php echo $this->Form->create('AccessDetail'); ?>
-            <?php echo $this->Form->input('team', array('value'=>$this->Session->read('team'), 'type'=>'hidden'));?>
+            <?php echo $this->Form->input('team', array('value'=>$this->Session->read('Auth.User.Teams.name'), 'type'=>'hidden'));?>
             <div class="col-md-5">
                 <div class="form-group">
-                    <?php echo $this->Form->input('uniqueid', array('label' => 'Unique ID<span class="mandatory">*</span>', 'class'=>'form-control mandatory', 'placeholder'=>'Ex: Incognitos'));?>
+                    <?php echo $this->Form->input('uniqueid', array('label' => 'Unique ID<span class="mandatory">*</span>', 'class'=>'form-control', 'placeholder'=>'Ex: Incognitos'));?>
                 </div>
                 <div class="form-group">
                     <?php echo $this->Form->input('fname', array('label' => 'First Name', 'class'=>'form-control', 'placeholder'=>'Ex: Sanjay'));?>

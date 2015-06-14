@@ -2,7 +2,7 @@
 /**
  * Thrust: The Audit Management Tool
  * 
- * @author: SANJAY SUTHAR
+ * @author: Sanjay Suthar
  * @email:  ss2445@gmail.com
  * @version:	2.0
  * @since:	v1.0
@@ -13,41 +13,88 @@ App::uses('AppController', 'Controller');
  *
  * @property AccessDetail $AccessDetail
  * @property PaginatorComponent $Paginator
+ * @author Sanjay Suthar
  */
 class AccessDetailsController extends AppController {
 
-/**
- * Components
- *
- * @var array
- */
+    /**
+     * Components
+     * @var array
+     */
 	public $components = array('Paginator');
 
     public function beforefilter() {
         parent::beforeFilter();
-        //session check
-        if($this->Session->read('user') == null){
-            $this->redirect(array('controller' => 'login', 'action' => 'index'));
-        }
-
     }
 
-/**
- * index method
- * @param string $uid
- * @return void
- */
+    /*
+     * All Private/Protected Functions below this
+     */
+
+    /**
+     * Activate / Deactivate User and all corresponding access based on parameter flag
+     * @param $activateflag
+     * @param $uid
+     * @throws FatalErrorException
+     */
+    private function manageuser($activateflag, $uid) {
+        //To Do: remove hard coded query
+        $accessids = $this->AccessDetail->query("SELECT accessid FROM access_details WHERE uniqueid = '$uid'");
+        foreach ($accessids as $accessid) {
+            $entity['accessid'] = $accessid['access_details']['accessid'];
+            if($activateflag == AppController::$ActivateUserStatus) {
+                $entity['status'] = AppController::$ActivateUserStatus;
+            } elseif($activateflag == AppController::$DeactivateUserStatus) {
+                $entity['status'] = AppController::$DeactivateUserStatus;
+            }
+            $accessDetailEntity['AccessDetail'] = $entity;
+            if ($this->AccessDetail->save($accessDetailEntity)) {
+                $this->Session->setFlash(__('Success'));
+            } else {
+                $this->Session->setFlash(__('Something went wrong, Contact Sanjay.'));
+                throw new FatalErrorException(__('Something went wrong, Contact Sanjay.'));
+                break;
+            }
+        }
+    }
+
+    /**
+     * Validate Access Id against, exist and belongs to logged in User's Team
+     * @param null $id
+     * @return record array|null
+     * @throws NotFoundException
+     */
+    private function validateAccessId($id = null) {
+        $options = array('conditions' => array('AccessDetail.' . $this->AccessDetail->primaryKey => $id, 'AccessDetail.Team' => $this->getUserTeam()));
+        $record = $this->AccessDetail->find('first', $options);
+        //check so that user can only edit own team data, not others
+        if(empty($record)) {
+            throw new NotFoundException(__('Invalid request!'));
+        }
+        return $record;
+    }
+
+    /*
+     * All Public Functions below this
+     */
+
+    /**
+     * Default Action
+     * Fetch all Access Details for logged in User
+     * Filter: Fetch only for Active Team Members
+     * If Referral URL is Manage Team Members then Fetch All Access Active/Non-Active
+     * @param string $uid
+     * @return void
+     */
 	public function index($uid = null) {
 		$this->AccessDetail->recursive = 0;
-        $team = $this->Session->read('team');
-
         //checking conditions on basis of input parameter
         if(is_null($uid)) {
             /*$query = $this->AccessDetail->find('all', array(
-                                    'conditions' => array('AccessDetail.Team' => $team, 'AccessDetail.Status' => AppController::$ActivateUserStatus)
+                                    'conditions' => array('AccessDetail.Teams' => $team, 'AccessDetail.Status' => AppController::$ActivateUserStatus)
                     ));*/
             $this->Paginator->settings = array(
-                'conditions' => array('1'=>'1=1', 'AccessDetail.Team' => $team, 'AccessDetail.status' => AppController::$ActivateUserStatus
+                'conditions' => array('1'=>'1=1', 'AccessDetail.Team' => $this->getUserTeam(), 'AccessDetail.status' => AppController::$ActivateUserStatus
                 ),
                 'fields' => array('AccessDetail.*','lad.latest_audit_month','lad.latest_audit_year'),
                 'joins'      => array(
@@ -62,10 +109,10 @@ class AccessDetailsController extends AppController {
             );
         } else {
             /*$query = $this->AccessDetail->find('all', array(
-                'conditions' => array('AccessDetail.Team' => $team, 'AccessDetail.uniqueid' => $uid)
+                'conditions' => array('AccessDetail.Teams' => $team, 'AccessDetail.uniqueid' => $uid)
             ));*/
             $this->Paginator->settings = array(
-                'conditions' => array('1'=>'1=1', 'AccessDetail.Team' => $team, 'AccessDetail.uniqueid' => $uid
+                'conditions' => array('1'=>'1=1', 'AccessDetail.Team' => $this->getUserTeam(), 'AccessDetail.uniqueid' => $uid
                 ),
                 'fields' => array('AccessDetail.*','lad.latest_audit_month','lad.latest_audit_year'),
                 'joins'      => array(
@@ -80,12 +127,12 @@ class AccessDetailsController extends AppController {
             );
         }
         $accessDetails = $this->Paginator->paginate('AccessDetail', array(), array());
-        //debug($accessDetails);
         $this->set(compact('accessDetails'));
 	}
 
     /**
      * Upload Excel method
+     * Upload Access Details Template
      * @return void
      */
     public function uploadexcel() {
@@ -95,13 +142,12 @@ class AccessDetailsController extends AppController {
         //starting with 2, 1 is header skipping it, all index for excel starts with 1
         $rowindex = 2;
         $arrindex = 0;
-        $team = $this->Session->read("team");
         while($excelData->value($rowindex, 1) != '') {
             //accessid is auto increment
             $accessDetailsModel['AccessDetail'][$arrindex]['uniqueid'] = $excelData->value($rowindex, 1);
             $accessDetailsModel['AccessDetail'][$arrindex]['fname'] = $excelData->value($rowindex, 2);
             $accessDetailsModel['AccessDetail'][$arrindex]['lname'] = $excelData->value($rowindex, 3);
-            $accessDetailsModel['AccessDetail'][$arrindex]['team'] = $team;
+            $accessDetailsModel['AccessDetail'][$arrindex]['team'] = $this->getUserTeam();
             $accessDetailsModel['AccessDetail'][$arrindex]['systype'] = $excelData->value($rowindex, 4);
             $accessDetailsModel['AccessDetail'][$arrindex]['sysname'] = $excelData->value($rowindex, 5);
             $accessDetailsModel['AccessDetail'][$arrindex]['env'] = $excelData->value($rowindex, 6);
@@ -117,33 +163,17 @@ class AccessDetailsController extends AppController {
             if ($this->AccessDetail->save($accessDetailEntity)) {
                 $this->Session->setFlash(__('Successfully uploaded from excel.'));
             } else {
-                $this->Session->setFlash(__('The access detail could not be saved. Please, try again.'));
+                $this->Session->setFlash(__(AppController::$errorMessage));
                 break;
             }
         }
         return $this->redirect(array('action' => 'index'));
     }
 
-/**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
-		if (!$this->AccessDetail->exists($id)) {
-			throw new NotFoundException(__('Invalid access detail'));
-		}
-		$options = array('conditions' => array('AccessDetail.' . $this->AccessDetail->primaryKey => $id));
-		$this->set('accessDetail', $this->AccessDetail->find('first', $options));
-	}
-
-/**
- * add method
- *
- * @return void
- */
+    /**
+     * Add New Access Detail
+     * @return void
+     */
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->AccessDetail->create();
@@ -151,71 +181,66 @@ class AccessDetailsController extends AppController {
 				$this->Session->setFlash(__('The access detail has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The access detail could not be saved. Please, try again.'));
+				$this->Session->setFlash(__(AppController::$errorMessage));
 			}
 		}
 	}
 
-/**
- * edit method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+    /**
+     * Edit existing Access Detail
+     * @throws NotFoundException
+     * @param string $id
+     * @return void
+     */
 	public function edit($id = null) {
-		if (!$this->AccessDetail->exists($id)) {
-			throw new NotFoundException(__('Invalid access detail'));
-		}
+        $record = $this->validateAccessId($id);
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->AccessDetail->save($this->request->data)) {
 				$this->Session->setFlash(__('The access detail has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The access detail could not be saved. Please, try again.'));
+				$this->Session->setFlash(__(AppController::$errorMessage));
 			}
 		} else {
-			$options = array('conditions' => array('AccessDetail.' . $this->AccessDetail->primaryKey => $id));
-			$this->request->data = $this->AccessDetail->find('first', $options);
+			$this->request->data = $record;
 		}
 	}
 
-/**
- * delete method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
+    /**
+     * Delete an Access Detail
+     * @throws NotFoundException
+     * @param string $id
+     * @return void
+     */
 	public function delete($id = null) {
 		$this->AccessDetail->id = $id;
-		if (!$this->AccessDetail->exists()) {
-			throw new NotFoundException(__('Invalid access detail'));
-		}
+        $this->validateAccessId($id);
+
 		$this->request->allowMethod('post', 'delete');
 		if ($this->AccessDetail->delete()) {
 			$this->Session->setFlash(__('The access detail has been deleted.'));
 		} else {
-			$this->Session->setFlash(__('The access detail could not be deleted. Please, try again.'));
+			$this->Session->setFlash(__(AppController::$errorMessage));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
 
     /**
-     * auto suggest audits to be performed, based on access which are not audited from longer time
+     * Auto suggest Access Details, Audit to be performed for them, based on access which are not audited from longer time
+     * @param null $perc
+     * @throws NotFoundException
      */
     public function autosuggest($perc = null) {
         if($perc == null) {
-            throw new NotFoundException(__('Percentage Missing'));
+            throw new NotFoundException(__(AppController::$invalidRequestMessage));
         }
-        $team = $this->Session->read('team');
         //setting to be visible on UI side
         $this->set(compact('perc'));
         $perc = $perc / 100;
-        $percentage = $this->AccessDetail->query("SELECT ROUND((SELECT count(*) FROM access_details WHERE team = '".$team."' AND status = 1) * ". $perc.", 0) AS Percentage FROM DUAL");
+        $percentage = $this->AccessDetail->query("SELECT ROUND((SELECT count(*) FROM access_details WHERE Team = '".$this->getUserTeam()."' AND status = 1) * ". $perc.", 0) AS Percentage FROM DUAL");
         //debug($percentage[0][0]['Percentage']);
         $this->Paginator->settings = array(
-            'conditions' => array('1'=>'1=1', 'AccessDetail.Team' => $team, 'AccessDetail.status' => AppController::$ActivateUserStatus
+            'conditions' => array('1'=>'1=1', 'AccessDetail.Team' => $this->getUserTeam(), 'AccessDetail.status' => AppController::$ActivateUserStatus
             ),
             'fields' => array('AccessDetail.*','lad.latest_audit_month','lad.latest_audit_year'),
             'joins'      => array(
@@ -239,12 +264,11 @@ class AccessDetailsController extends AppController {
     }
 
     /**
-     * List All Users for a Team, based on group by by uid column of AccessDetail table
+     * List All Users for a Teams, based on group by by uid column of AccessDetail table
      */
     public function listusers() {
-        $team = $this->Session->read('team');
         $this->Paginator->settings = array(
-            'conditions' => array('1'=>'1=1', 'AccessDetail.Team' => $team
+            'conditions' => array('1'=>'1=1', 'AccessDetail.Team' => $this->getUserTeam()
             ),
             'fields' => array('AccessDetail.uniqueid','AccessDetail.fname','AccessDetail.lname', 'count(*) as `accesscount`', 'AccessDetail.status'),
             'group' => array('AccessDetail.uniqueid'),
@@ -253,7 +277,6 @@ class AccessDetailsController extends AppController {
             )
         );
         $accessDetails = $this->Paginator->paginate('AccessDetail', array(), array());
-        //debug($accessDetails);
         $this->set(compact('accessDetails'));
     }
 
@@ -263,14 +286,12 @@ class AccessDetailsController extends AppController {
      */
     public function deactivate($uid = null) {
         if($uid == null) {
-            //throw new NotFoundException(__('Invalid Request'));
             return $this->redirect(array('action' => 'index'));
         }
         $this->manageuser(AppController::$DeactivateUserStatus, $uid);
         $this->Session->setFlash(__('Successfully Deactivated User and all the Access.'));
         return $this->redirect(array('action' => 'listusers'));
     }
-
 
     /**
      * Activate a user and all the access user have
@@ -285,34 +306,11 @@ class AccessDetailsController extends AppController {
         return $this->redirect(array('action' => 'listusers'));
     }
 
-    /**
-     * Activate / Deactivate User and all corresponding access based on parameter flag
-     * @param $activateflag
-     * @param $uid
-     * @throws FatalErrorException
+
+    /*
+     *  All Utility Function below this
      */
-    private function manageuser($activateflag, $uid) {
-        $accessids = $this->AccessDetail->query("SELECT accessid FROM access_details WHERE uniqueid = '$uid'");
-        foreach ($accessids as $accessid) {
-            $entity['accessid'] = $accessid['access_details']['accessid'];
-            if($activateflag == AppController::$ActivateUserStatus) {
-                $entity['status'] = AppController::$ActivateUserStatus;
-            } elseif($activateflag == AppController::$DeactivateUserStatus) {
-                $entity['status'] = AppController::$DeactivateUserStatus;
-            }
-            $accessDetailEntity['AccessDetail'] = $entity;
-            if ($this->AccessDetail->save($accessDetailEntity)) {
-                $this->Session->setFlash(__('Success'));
-            } else {
-                $this->Session->setFlash(__('Something went wrong, Contact Sanjay.'));
-                throw new FatalErrorException(__('Something went wrong, Contact Sanjay.'));
-                break;
-            }
-        }
-    }
 
-
-    /** All Utility function goes below this */
     /**
      * Utility Function to Convert UserStatusFlag
      * @param $statusflag
@@ -336,5 +334,4 @@ class AccessDetailsController extends AppController {
         else
             return AppController::$ActivateUserStatus;
     }
-
 }
