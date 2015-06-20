@@ -25,9 +25,7 @@ class TeamsController extends AppController {
         parent::beforeFilter();
         //checking admin action access
         if(in_array($this->action, $this->adminActions) && !$this->isAuthorized($this->Auth->user())) {
-            $this->Auth->logout();
-            //destroy session to ensure Auth.redirect has been removed from Session, We don't want referral url.
-            $this->Session->destroy();
+            return $this->redirect($this->Auth->redirectUrl());
         }
     }
 
@@ -75,7 +73,7 @@ class TeamsController extends AppController {
         }
         $this->request->allowMethod('post', 'delete');
         if ($this->Team->delete()) {
-            $this->setFlash('Team has been deleted. All associated users are now deactivated!', AppController::$INFO);
+            $this->setFlash('Team has been deleted. All associated users are now deactivated!', AppController::$SUCCESS);
             //Since we have altered teamList hence, destroying teamList from session so that it can be reloaded from db
             $this->Session->delete('teamList');
         } else {

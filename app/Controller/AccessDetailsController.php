@@ -74,6 +74,52 @@ class AccessDetailsController extends AppController {
         return $record;
     }
 
+    /**
+     * Get Limit for Auto Suggest Features based on input Percentage
+     * @param $percentage
+     * @param $itemOrMember
+     * @return mixed
+     * @throws InvalidArgumentException
+     */
+    private function getLimitForAutoSuggest($percentage, $itemOrMember) {
+        $percentage = $percentage / 100;
+        $db = $this->AccessDetail->getDataSource();
+        if($itemOrMember == 'member') {
+            $fields = array('uniqueid');
+            $group = 'uniqueid';
+        } else if($itemOrMember == 'item') {
+            $fields = array('1');
+            $group = null;
+        } else {
+            throw new InvalidArgumentException(AppController::$invalidRequestMessage);
+        }
+        $innerQuery = $db->buildStatement(
+            array(
+                'conditions' => array('team' => $this->getUserTeam(), 'status' => AppController::$ActivateUserStatus),
+                'fields'     => $fields,
+                'table'      => $db->fullTableName($this->AccessDetail),
+                'alias'      => 'innerQuery',
+                'group'      => $group
+            ),
+            $this->AccessDetail
+        );
+        $countQuery = $db->buildStatement(
+            array(
+                'fields'     => array('count(*)'),
+                'table'      => '('.$innerQuery.')',
+                'alias'      => 'countQuery'
+            ),
+            $this->AccessDetail
+        );
+        $result = $this->AccessDetail->query('SELECT ROUND(('.$countQuery.')*'.$percentage.') AS Percentage FROM DUAL');
+        //if percentage is zero, fetching at least one record
+        if($result[0][0]['Percentage'] == 0) {
+            $result[0][0]['Percentage'] = 1;
+        }
+        return $result[0][0]['Percentage'];
+    }
+
+
     /*
      * All Public Functions below this
      */
@@ -90,9 +136,6 @@ class AccessDetailsController extends AppController {
 		$this->AccessDetail->recursive = 0;
         //checking conditions on basis of input parameter
         if(is_null($uid)) {
-            /*$query = $this->AccessDetail->find('all', array(
-                                    'conditions' => array('AccessDetail.Teams' => $team, 'AccessDetail.Status' => AppController::$ActivateUserStatus)
-                    ));*/
             $this->Paginator->settings = array(
                 'conditions' => array('1'=>'1=1', 'AccessDetail.Team' => $this->getUserTeam(), 'AccessDetail.status' => AppController::$ActivateUserStatus
                 ),
@@ -105,12 +148,11 @@ class AccessDetailsController extends AppController {
                         'foreignKey' => false,
                         'conditions'=> array('AccessDetail.accessid = lad.accessid')
                     ),
-                )
+                ),
+                'limit'=>AppController::$limit
             );
+
         } else {
-            /*$query = $this->AccessDetail->find('all', array(
-                'conditions' => array('AccessDetail.Teams' => $team, 'AccessDetail.uniqueid' => $uid)
-            ));*/
             $this->Paginator->settings = array(
                 'conditions' => array('1'=>'1=1', 'AccessDetail.Team' => $this->getUserTeam(), 'AccessDetail.uniqueid' => $uid
                 ),
@@ -123,7 +165,8 @@ class AccessDetailsController extends AppController {
                         'foreignKey' => false,
                         'conditions'=> array('AccessDetail.accessid = lad.accessid')
                     ),
-                )
+                ),
+                'limit'=>AppController::$limit
             );
             $this->setFlash('Access Details of '.$uid, AppController::$INFO);
         }
@@ -228,18 +271,13 @@ class AccessDetailsController extends AppController {
 
     /**
      * Auto suggest Access Details, Audit to be performed for them, based on access which are not audited from longer time
-     * @param null $perc
+     * @param null $percentage
      * @throws NotFoundException
      */
-    public function autosuggest($perc = null) {
-        if($perc == null) {
+    public function autoSuggestItems($percentage = null) {
+        if($percentage == null) {
             throw new NotFoundException(__(AppController::$invalidRequestMessage));
         }
-        //setting to be visible on UI side
-        $this->set(compact('perc'));
-        $perc = $perc / 100;
-        $percentage = $this->AccessDetail->query("SELECT ROUND((SELECT count(*) FROM access_details WHERE Team = '".$this->getUserTeam()."' AND status = 1) * ". $perc.", 0) AS Percentage FROM DUAL");
-        //debug($percentage[0][0]['Percentage']);
         $this->Paginator->settings = array(
             'conditions' => array('1'=>'1=1', 'AccessDetail.Team' => $this->getUserTeam(), 'AccessDetail.status' => AppController::$ActivateUserStatus
             ),
@@ -257,12 +295,69 @@ class AccessDetailsController extends AppController {
                 'lad.latest_audit_year'=>'ASC',
                 'lad.latest_audit_month'=>'ASC'
             ),
-            'limit' =>$percentage[0][0]['Percentage']
+            'limit' =>$this->getLimitForAutoSuggest($percentage, 'item')
         );
         $accessDetails = $this->Paginator->paginate('AccessDetail', array(), array('lad.latest_audit_year', 'lad.latest_audit_month'));
-        //debug($accessDetails);
-        $this->setFlash('Auto Suggesting '.($perc*100).'% from All Access Details.', AppController::$INFO);
-        $this->set(compact('accessDetails'));
+        $this->setFlash('Auto Suggesting '.($percentage).'% from All Access Details.', AppController::$INFO);
+        $this->set(compact('accessDetails', 'percentage'));
+    }
+
+    /**
+     * Auto Suggesting Team Members to be audited for this Month,
+     * BR: Getting all the Access, Audit data prior to this month, segregating based on Audited Percentage and displaying result
+     * @param null $percentage
+     * @throws NotFoundException
+     */
+    public function autoSuggestMembers($percentage = null) {
+        if($percentage == null) {
+            throw new NotFoundException(__(AppController::$invalidRequestMessage));
+        }
+        $this->loadModel('AuditDetail');
+        $db = $this->AccessDetail->getDataSource();
+        $innerJoinQuery = $db->buildStatement(
+            array(
+                'conditions' => array('OR'=>
+                    array('year <>' => 2015, 'month <>' => 5) ),
+                'fields'     => array('access_detail_id', '1 as audited_before'),
+                'table'      => $db->fullTableName($this->AuditDetail),
+                'alias'      => 'aud',
+                'group'      => 'access_detail_id'
+            ),
+            $this->AccessDetail
+        );
+        $innerQuery = $db->buildStatement(
+            array(
+                'conditions' => array('team' => $this->getUserTeam(), 'status' => AppController::$ActivateUserStatus),
+                'fields'     => array('acc.uniqueid as uniqueid', 'CONCAT(acc.fname, \' \', acc.lname) as name', 'count(*) as total_access', 'SUM(IFNULL(aud.audited_before,0)) as audited_before'),
+                'table'      => $db->fullTableName($this->AccessDetail),
+                'alias'      => 'acc',
+                'joins'      => array(
+                                    array(
+                                        'table' => '('.$innerJoinQuery.')',
+                                        'alias' => 'aud',
+                                        'type' => 'LEFT',
+                                        'foreignKey' => false,
+                                        'conditions'=> array('acc.accessid = aud.access_detail_id')
+                                    )),
+                'group'      => 'acc.uniqueid'
+            ),
+            $this->AccessDetail
+        );
+        $outerQuery = $db->buildStatement(
+            array(
+                'fields'     => array('uniqueid', 'name', 'total_access', 'audited_before', 'ROUND((audited_before*100)/total_access) as AccessDetail__auditPerc'),
+                'table'      => '('.$innerQuery.')',
+                'alias'      => $this->AccessDetail->alias,
+                'limit'      => $this->getLimitForAutoSuggest($percentage, 'member'),
+                'order'      => 'AccessDetail__auditPerc',
+            ),
+            $this->AccessDetail
+        );
+        //Mapping auditPerc to be included in AccessDetail
+        $this->AccessDetail->virtualFields['auditPerc'] = 0;
+        $teamMembers = $this->AccessDetail->query($outerQuery);
+        $this->setFlash('Auto Suggesting '.($percentage).'% of total Team Members.', AppController::$INFO);
+        $this->set(compact('teamMembers', 'percentage'));
     }
 
     /**
@@ -276,7 +371,8 @@ class AccessDetailsController extends AppController {
             'group' => array('AccessDetail.uniqueid'),
             'order' => array(
                 'AccessDetail.uniqueid'=>'ASC'
-            )
+            ),
+            'limit'=>AppController::$limit
         );
         $accessDetails = $this->Paginator->paginate('AccessDetail', array(), array());
         $this->set(compact('accessDetails'));
@@ -315,11 +411,11 @@ class AccessDetailsController extends AppController {
 
     /**
      * Utility Function to Convert UserStatusFlag
-     * @param $statusflag
+     * @param $statusFlag
      * @return string
      */
-    public function userStatusFlagConverter($statusflag) {
-        if($statusflag == AppController::$ActivateUserStatus)
+    public function userStatusFlagConverter($statusFlag) {
+        if($statusFlag == AppController::$ActivateUserStatus)
             return "Activated";
         else
             return "Deactivated";
@@ -327,11 +423,11 @@ class AccessDetailsController extends AppController {
 
     /**
      * Utility Function to get Audit Status for a Access; 0-NotAudited, 1-Audited
-     * @param $statusflag
+     * @param $statusFlag
      * @return int|mixed
      */
-    public function auditStatusFlagConverter($statusflag) {
-        if(is_null($statusflag))
+    public function auditStatusFlagConverter($statusFlag) {
+        if(is_null($statusFlag))
             return AppController::$DeactivateUserStatus;
         else
             return AppController::$ActivateUserStatus;

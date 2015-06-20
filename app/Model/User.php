@@ -93,7 +93,7 @@ class User extends AppModel {
      * Validate NewPassword and ConfirmPassword fields
      * @return bool
      */
-    private function validate_passwords() {
+    public function validate_passwords() {
         return $this->data[$this->alias]['secret'] === $this->data[$this->alias]['secretrep'];
     }
 
@@ -101,7 +101,7 @@ class User extends AppModel {
      * Validate Old Password from Database
      * @return bool
      */
-    private function validate_current_password() {
+    public function validate_current_password() {
         $user = $this->find('first', array(
             'conditions' => array(
                 'User.id' => AuthComponent::user('id')

@@ -4,14 +4,14 @@
  * 
  * @author: Sanjay Suthar
  * @email:  ss2445@gmail.com
- * @version:	1.0
+ * @version:	2.0
  * @since:	v1.0
  */
  -->
 <div class="panel panel-default">
     <div class="panel-heading">
         <!-- Panel Header -->
-        <b>Perform Audit on <?php echo $perc?>% of Auto Suggested Access Details</b>
+        <b>Perform Audit on <?php echo $percentage?>% of Auto Suggested Access Details</b>
         <div class="btn-group pull-right">
             <button type="button" data-toggle="dropdown" class="btn btn-warning dropdown-toggle">Auto Suggest Percentage<span class="caret"></span></button>
             <ul class="dropdown-menu">

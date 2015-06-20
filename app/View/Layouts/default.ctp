@@ -48,6 +48,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	?>
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
     <script src="/<?php echo $root?>/js/jquery.min.js"></script>
+    <script src="/<?php echo $root?>/js/flip.js"></script>
     <script src="/<?php echo $root?>/js/bootstrap-table.js"></script>
     <script src="/<?php echo $root?>/js/tableExport.js"></script>
     <script src="/<?php echo $root?>/js/jquery.base64.js"></script>
@@ -131,7 +132,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         </div>
         <!-- /#page-content-wrapper -->
     </div>
-<?php echo $this->element('sql_dump'); ?>
+<!--<?php echo $this->element('sql_dump'); ?>-->
 <!-- / Main Wrapper for Page -->
 
 <!-- Bootstrap core JavaScript

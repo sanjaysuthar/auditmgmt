@@ -24,9 +24,7 @@ class UsersController extends AppController {
         $this->Auth->allow('forgotPassword');
         //checking admin action access
         if(in_array($this->action, $this->adminActions) && !$this->isAuthorized($this->Auth->user())) {
-            $this->Auth->logout();
-            //destroy session to ensure Auth.redirect has been removed from Session, We don't want referral url.
-            $this->Session->destroy();
+            return $this->redirect($this->Auth->redirectUrl());
         }
     }
 
@@ -253,7 +251,7 @@ class UsersController extends AppController {
         $user['Teams'] = $record['Team'];
         $user['teams_id'] = $id;
         if($this->Session->write('Auth.User', $user)){
-            $this->setFlash('Logged in as '.$this->getUserTeam().' Team', AppController::$SUCCESS);
+            $this->setFlash('Logged in as '.$this->getUserTeam().' Team', AppController::$INFO);
         } else {
             $this->setFlash(AppController::$errorMessage, AppController::$DANGER);
         }

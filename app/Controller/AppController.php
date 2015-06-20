@@ -50,6 +50,7 @@ class AppController extends Controller {
     public static $INFO = 'info';
     public static $WARNING = 'warning';
     public static $DANGER = 'danger';
+    public static $limit = 999;
 
 
     public $components = array(
