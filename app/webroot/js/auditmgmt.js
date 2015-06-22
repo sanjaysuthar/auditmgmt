@@ -3,7 +3,7 @@
  * 
  * @author: Sanjay Suthar
  * @email:  ss2445@gmail.com
- * @version:	1.0
+ * @version:	2.0
  * @since:	v1.0
  */
  
@@ -28,7 +28,6 @@ function Validate(oForm) {
                         break;
                     }
                 }
-
                 if (!blnValid) {
                     alert("Sorry, " + sFileName + " is invalid, allowed extensions are: " + _validFileExtensions.join(", "));
                     return false;
@@ -36,6 +35,13 @@ function Validate(oForm) {
             }
         }
     }
-
     return true;
 }
+
+/**
+ * Auto Hide Flash Message
+ * ToDo: Optimize Performance, not required for every page load, required only when Div is visible
+ */
+$(document).ready(function() {
+    $('#myCustomFlash').fadeTo(3000, 500).hide(500);
+});
