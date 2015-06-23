@@ -24,10 +24,10 @@
                         <?php echo $this->Form->input('access_detail_id', array('label'=>'Access ID<span class="mandatory">*</span>', 'class'=>'form-control', 'disabled'=>'true', 'type'=>'text')); ?>
                     </div>
                     <div class="form-group">
-                        <?php echo $this->Form->input('month', array('label'=>'Audited Month<span class="mandatory">*</span>', 'class'=>'form-control', 'options'=>$auditMonth)); ?>
+                        <?php echo $this->Form->input('month', array('label'=>'Audited Month<span class="mandatory">*</span>', 'class'=>'form-control', 'options'=>$auditMonth, 'selected'=>date('m'))); ?>
                     </div>
                     <div class="form-group">
-                        <?php echo $this->Form->input('year', array('label'=>'Audited Year<span class="mandatory">*</span>', 'class'=>'form-control', 'options'=>$auditYear)); ?>
+                        <?php echo $this->Form->input('year', array('label'=>'Audited Year<span class="mandatory">*</span>', 'class'=>'form-control', 'options'=>$auditYear, 'selected'=>date('Y'))); ?>
                     </div>
                 </div>
                 <div class="col-md-2">
@@ -37,7 +37,7 @@
                         <?php echo $this->Form->input('status', array('label'=>'Audit Status<span class="mandatory">*</span>', 'class'=>'form-control', 'options'=>$auditStatus)); ?>
                     </div>
                     <div class="form-group">
-                        <?php echo $this->Form->input('auditor', array('label'=>'Auditor ext Id<span class="mandatory">*</span>', 'class'=>'form-control', 'placeholder'=>'Ex: ext.sanjkumar')); ?>
+                        <?php echo $this->Form->input('auditor', array('label'=>'Auditor Id<span class="mandatory">*</span>', 'class'=>'form-control', 'value'=>$this->Session->read('Auth.User.userid'), 'readonly'=>true)); ?>
                     </div>
                     <div class="form-group">
                         <?php echo $this->Form->input('comments', array('label'=>'Remarks', 'class'=>'form-control', 'placeholder'=>'Ex: Audit failed because of access violation')); ?>
