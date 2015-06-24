@@ -387,7 +387,7 @@ class AccessDetailsController extends AppController {
             return $this->redirect(array('action' => 'index'));
         }
         $this->manageuser(AppController::$DeactivateUserStatus, $uid);
-        $this->setFlash('Successfully Deactivated User and all the Access.', AppController::$SUCCESS);
+        $this->setFlash('Successfully Dissociated User and all the Access.', AppController::$SUCCESS);
         return $this->redirect(array('action' => 'listusers'));
     }
 
@@ -400,7 +400,7 @@ class AccessDetailsController extends AppController {
             return $this->redirect(array('action' => 'index'));
         }
         $this->manageuser(AppController::$ActivateUserStatus, $uid);
-        $this->setFlash('Successfully Activated User and all the Access.', AppController::$SUCCESS);
+        $this->setFlash('Successfully Associated User and all the Access.', AppController::$SUCCESS);
         return $this->redirect(array('action' => 'listusers'));
     }
 

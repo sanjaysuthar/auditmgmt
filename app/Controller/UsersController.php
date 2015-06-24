@@ -257,4 +257,9 @@ class UsersController extends AppController {
         }
         return $this->redirect(array('controller'=>'teams', 'action' => 'index'));
     }
+
+    public function about() {
+    }
+    public function help() {
+    }
 }

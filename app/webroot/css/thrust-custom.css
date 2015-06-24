@@ -206,3 +206,40 @@ body {
     border-radius: 4px;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
+
+/**
+ * Help Page CSS
+ */
+.help h2{
+    color: #265a88
+}
+.help p{
+    font-size: 16px;
+    padding-left: 10px;
+}
+.help div{
+    font-size: 18px
+}
+
+/**
+ * About Page CSS
+ */
+.about{
+    margin-top: 10px;
+}
+.about img{
+    margin-left: 40px;
+}
+.about h3{
+    color: #003d4c;
+}
+.about p{
+    text-align: justify;
+    font-size: 16px;
+}
+.about-content{
+    margin-left: 10px;
+}
+
+
+

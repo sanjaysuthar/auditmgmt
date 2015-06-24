@@ -12,9 +12,10 @@
     <div class="panel-heading">
         <!-- Panel Header -->
         <ul class="legend">
-            <li><b>All Team Members (Click on a User Id to get all of it's Access)</b></li>
-            <li class="pull-right"><span class="deactivated"></span> Deactivated</li>
-            <li class="pull-right"><span class="activated"></span> Activated</li>
+            <li><b>All Team Members</b>
+                <b class="hidden-xs hidden-sm hidden-md">(Click on a User Id to get all of it's Access)</b></li>
+            <li class="pull-right"><span class="deactivated"></span> Dissociated</li>
+            <li class="pull-right"><span class="activated"></span> Associated</li>
         </ul>
         <!-- / Panel Header -->
     </div>
@@ -61,9 +62,9 @@
                         <td class="actions">
                             <?php
                                 if($accessDetail['AccessDetail']['status'] == AppController::$ActivateUserStatus) {
-                                    echo $this->Form->postLink(__('Deactivate'), array('action' => 'deactivate', $accessDetail['AccessDetail']['uniqueid']), array('class' => 'glyphicon','title'=>'Deactivate User'), __('Are you sure you want to deactivate # %s, It will automatically deactivate all the access this user have?', $accessDetail['AccessDetail']['uniqueid']));
+                                    echo $this->Form->postLink(__('Dissociate'), array('action' => 'deactivate', $accessDetail['AccessDetail']['uniqueid']), array('class' => 'glyphicon','title'=>'Deactivate User'), __('Are you sure you want to deactivate # %s, It will automatically deactivate all the access this user have?', $accessDetail['AccessDetail']['uniqueid']));
                                 } else {
-                                    echo $this->Form->postLink(__('Activate'), array('action' => 'activate', $accessDetail['AccessDetail']['uniqueid']), array('class' => 'glyphicon','title'=>'Activate User'), __('Are you sure you want to activate # %s, It will automatically activate all the access this user have?', $accessDetail['AccessDetail']['uniqueid']));
+                                    echo $this->Form->postLink(__('Associate'), array('action' => 'activate', $accessDetail['AccessDetail']['uniqueid']), array('class' => 'glyphicon','title'=>'Activate User'), __('Are you sure you want to activate # %s, It will automatically activate all the access this user have?', $accessDetail['AccessDetail']['uniqueid']));
                                 }
                             ?>
                         </td>

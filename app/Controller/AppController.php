@@ -75,6 +75,7 @@ class AppController extends Controller {
     );
 
     public function beforeFilter() {
+        $this->Auth->allow('about', 'help');
         $environments = array('DEV/CMAD'=>'DEV/CMAD','INT/CMAQ'=>'INT/CMAQ', 'UAT/QUA'=>'UAT/QUA','PREPROD/TST'=>'PREPROD/TST', 'PROD'=>'PROD');
         $accessTypes = array('Personal'=>'Personal', 'Common'=>'Common');
         $accessPrivileges = array('Read'=>'Read', 'R/W'=>'R/W', 'R/W/X'=>'R/W/X');

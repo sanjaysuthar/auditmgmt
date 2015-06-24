@@ -51,7 +51,7 @@
                 <div class="col-md-8">
                     <div class="form-group">
                         <!-- Put capture="camera" for Mobile Uploads and remove Multiple attr, Single upload only -->
-                        <?php echo $this->Form->input('evidence1', array('name'=>'data[AuditDetail][evidences][]', 'type'=>'file', 'label'=>'Evidences(Max: 2)', 'class'=>'form-control file', 'multiple'=>'true', 'accept'=>'image/*')); ?>
+                        <?php echo $this->Form->input('evidence1', array('name'=>'data[AuditDetail][evidences][]', 'type'=>'file', 'label'=>'Evidences', 'class'=>'form-control file', 'capture'=>'camera', 'accept'=>'image/*')); ?>
                     </div>
                 </div>
             </div>
@@ -68,7 +68,7 @@
         $("#AuditDetailEvidence1").fileinput({
             showUpload: false,
             maxFileCount: 2,
-            maxFileSize: 200,
+            maxFileSize: 5000,
             previewFileType: "image",
             browseClass: "btn btn-info",
             browseLabel: "Pick Image",

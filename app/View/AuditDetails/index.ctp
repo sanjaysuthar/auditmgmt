@@ -35,7 +35,7 @@
                    data-page-list="[5, 10, 20, 50, 100, 200]">
                 <thead>
                 <tr class="table-header">
-                    <th data-sortable="true"><?php echo h('#'); ?></th>
+                    <th data-sortable="true" data-visible="false" data-switchable="false"><?php echo h('#'); ?></th>
                     <th data-sortable="true"><?php echo h('Access ID'); ?></th>
                     <th data-sortable="true"><?php echo h('Status'); ?></th>
                     <th data-sortable="true"><?php echo h('Audit Month'); ?></th>

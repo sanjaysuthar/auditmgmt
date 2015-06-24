@@ -38,7 +38,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	<?php
 		echo $this->Html->meta('icon');
 		echo $this->Html->css('bootstrap');
-        echo $this->Html->css('dashboard');
+        echo $this->Html->css('thrust-custom');
         echo $this->Html->css('cakephp-inherited');
         echo $this->Html->css('fileinput');
         echo $this->Html->css('bootstrap-table');
@@ -72,9 +72,9 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                     <span class="icon-bar"></span>
                 </button>
                 <img src="/<?php echo $root?>/img/audit-icon-3.png" width="40" height="40" class="pull-left" style="margin-top: 4px"/>
-                <a class="navbar-brand" href="/<?php echo $root?>/accessdetails">&nbsp;&nbsp;<b>THRUST</b> : The Audit Management Tool
+                <a class="navbar-brand" href="/<?php echo $root?>/accessdetails">&nbsp;&nbsp;<b>THRUST</b> <span class="hidden-xs hidden-sm hidden-md"> : The Audit Management Tool </span>
                     <!-- Print Teams Name for Admin-->
-                    <span style="color: lightgreen">
+                    <span style="color: lightgreen" class="hidden-xs hidden-sm hidden-md">
                        <?php
                         $team = $this->Session->read('Auth.User.Teams.name');
                         if($team != null && $this->Session->read('Auth.User.role') == 'admin')
@@ -93,7 +93,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                         }
                     ?>
 
-                    <li><a href="#">Help</a></li>
+                    <li><a href="/<?php echo $root?>/users/about">About</a></li>
+                    <li><a href="/<?php echo $root?>/users/help">Help</a></li>
                     <!-- Print Logout Button -->
                     <?php
                         $user = $this->Session->read("Auth.User");
@@ -141,9 +142,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 
     <script src="/<?php echo $root?>/js/bootstrap.min.js"></script>
     <script src="/<?php echo $root?>/js/docs.min.js"></script>
-
     <script src="/<?php echo $root?>/js/fileinput.js"></script>
-    <script src="/<?php echo $root?>/js/auditmgmt.js"></script>
+    <script src="/<?php echo $root?>/js/thrust-custom.js"></script>
     <!-- Toggle menu script for sidebar -->
     <script>
         $("#menu-toggle").click(function(e) {
