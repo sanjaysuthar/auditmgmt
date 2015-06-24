@@ -94,6 +94,10 @@ class AppController extends Controller {
      * All Private/Protected Functions below this
      */
 
+    /**
+     * Check for supported browsers, if a browser is not supported, throw exception
+     * @throws NotFoundException
+     */
     private function checkSupportedBrowsers() {
         if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') ){
             throw new NotFoundException(__(AppController::$unsupportedBrowser));
