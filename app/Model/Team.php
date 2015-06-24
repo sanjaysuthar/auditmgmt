@@ -36,6 +36,10 @@ class Team extends AppModel {
             'notEmpty' => array(
                 'rule' => array('notEmpty'),
             ),
+            'isunique' => array(
+                'rule' => 'isUnique',
+                'message' => 'Team already exists, try a different Team name.'
+            ),
         )
     );
 }

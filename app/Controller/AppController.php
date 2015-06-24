@@ -46,6 +46,7 @@ class AppController extends Controller {
     public static $DeactivateUserStatus = 0;
     public static $errorMessage = 'Did you really think you are allowed to see that?';//'Something went wrong! Pleas try again.';
     public static $invalidRequestMessage = 'Did you really think you are allowed to see that? Thanks to SANJAY for protecting all the URLs ;-)';
+    public static $unsupportedBrowser = 'We are sorry, But IE is not a supported browser, So far we support Firefox, Chrome and Safari.';
     public static $SUCCESS = 'success';
     public static $INFO = 'info';
     public static $WARNING = 'warning';
@@ -86,11 +87,21 @@ class AppController extends Controller {
         $root = "auditmgmt";
         $teamList = $this->getTeamDetails();
         $this->set(compact('root', 'environments', 'accessTypes', 'accessPrivileges', 'sysTypes', 'auditStatus', 'auditMonth', 'auditYear', 'teamList'));
+        $this->checkSupportedBrowsers();
     }
 
     /*
      * All Private/Protected Functions below this
      */
+
+    private function checkSupportedBrowsers() {
+        if ( strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') ){
+            throw new NotFoundException(__(AppController::$unsupportedBrowser));
+        }
+        if (strpos($_SERVER['HTTP_USER_AGENT'], 'Trident/7.0; rv:11.0') !== false) {
+            throw new NotFoundException(__(AppController::$unsupportedBrowser));
+        }
+    }
 
     /**
      * Get All Team Details from db in order to display in various drop downs including login drop down, add user form
