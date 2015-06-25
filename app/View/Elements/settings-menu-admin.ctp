@@ -22,3 +22,6 @@
 <li role="presentation" class="dropdown-header btn-danger" style="color: #ffffff">Thrust Teams</li>
 <li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root?>/teams/">Manage Teams</a></li>
 <li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root?>/teams/add">Add New Team</a></li>
+<li role="presentation" class="divider"></li>
+
+<li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root?>/users/updateThrustFromRepo">Update Thrust</a></li>

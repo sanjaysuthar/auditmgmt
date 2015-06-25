@@ -17,7 +17,7 @@ App::uses('AppController', 'Controller');
 class UsersController extends AppController {
 
     public $components = array('Paginator');
-    protected $adminActions = array('resetPassword', 'add', 'edit', 'index', 'delete', 'changeTeam');
+    protected $adminActions = array('resetPassword', 'add', 'edit', 'index', 'delete', 'changeTeam', 'updateThrustFromRepo');
 
     public function beforefilter() {
         parent::beforeFilter();
@@ -255,6 +255,16 @@ class UsersController extends AppController {
         } else {
             $this->setFlash(AppController::$errorMessage, AppController::$DANGER);
         }
+        return $this->redirect(array('controller'=>'teams', 'action' => 'index'));
+    }
+
+    /**
+     * Update Thrust Repo from Remote Server, Provided Git is installed.
+     */
+    public function updateThrustFromRepo(){
+        $command = '"c:\Program Files (x86)\Git\bin\git.exe" pull -v --no-rebase --progress "origin" master';
+        exec($command, $output);
+        $this->setFlash('Thrust has been updated.', AppController::$SUCCESS);
         return $this->redirect(array('controller'=>'teams', 'action' => 'index'));
     }
 
