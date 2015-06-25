@@ -125,6 +125,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                 <div class="row">
                     <div class="col-lg-12">
                         <!-- All Pages Loads Here -->
+                        <?php echo $this->element('update-thrust-modal');?>
                         <?php echo $this->Session->flash(); ?>
                         <?php echo $this->fetch('content'); ?>
                     </div>

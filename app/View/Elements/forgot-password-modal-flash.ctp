@@ -10,7 +10,6 @@
  -->
 <!-- Anchor link and element to be replaced in login.ctp on Forgot Password option to use this model-flash -->
 <!--<a href="#" data-toggle="modal" data-target="#forgotPasswordModal">Forgot Password</a>-->
-<!--<?php echo $this->element('forgot-password-model-flash');?>-->
 
 <div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

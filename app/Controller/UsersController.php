@@ -262,14 +262,20 @@ class UsersController extends AppController {
      * Update Thrust Repo from Remote Server, Provided Git is installed.
      */
     public function updateThrustFromRepo(){
-        $command = '"c:\Program Files (x86)\Git\bin\git.exe" pull -v --no-rebase --progress "origin" master';
-        exec($command, $output);
+        exec(AppController::$updateThrustCommand, $output);
         $this->setFlash('Thrust has been updated.', AppController::$SUCCESS);
-        return $this->redirect(array('controller'=>'teams', 'action' => 'index'));
+        return $this->redirect(array('controller'=>'users', 'action' => 'index'));
     }
 
+    /**
+     * About page action
+     */
     public function about() {
     }
+
+    /**
+     * Help page action
+     */
     public function help() {
     }
 }

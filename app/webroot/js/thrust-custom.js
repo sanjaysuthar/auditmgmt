@@ -45,3 +45,10 @@ function Validate(oForm) {
 $(document).ready(function() {
     $('#myCustomFlash').fadeTo(3000, 500).hide(500);
 });
+
+/**
+ * Programmatically Click Update Thrust Modal Hidden Link
+ */
+function showUpdateThrustModal() {
+    $('#updateThrustHiddenLink')[0].click();
+}

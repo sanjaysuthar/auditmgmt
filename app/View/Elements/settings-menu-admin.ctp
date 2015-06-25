@@ -24,4 +24,4 @@
 <li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root?>/teams/add">Add New Team</a></li>
 <li role="presentation" class="divider"></li>
 
-<li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root?>/users/updateThrustFromRepo">Update Thrust</a></li>
+<li role="presentation"><a role="menuitem" tabindex="-1" href="/<?php echo $root?>/users/updateThrustFromRepo" onclick="showUpdateThrustModal()">Update Thrust</a></li>

@@ -82,5 +82,5 @@
             </div>
         </div>
     </div>
-    <?php echo $this->element('forgot-password-model');?>
+    <?php echo $this->element('forgot-password-modal');?>
 </div>

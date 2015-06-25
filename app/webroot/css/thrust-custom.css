@@ -241,5 +241,18 @@ body {
     margin-left: 10px;
 }
 
-
-
+/**
+ * Update Thrust Modal CSS
+ */
+.updateModalText {
+    text-align: center;
+}
+.updateModalHeader{
+    font-size: 20px;
+    color: darkblue;
+}
+.updateModalProgress{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
