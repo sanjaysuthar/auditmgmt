@@ -18,7 +18,7 @@
         <ul><li>Frontend Framework: <a href="http://getbootstrap.com" target="_blank">Bootstrap</a></li></ul>
         <ul><li>Backend Framework: <a href="http://cakephp.org" target="_blank">CakePHP</a></li></ul>
         <ul><li>Database: <a href="http://www.mysql.com" target="_blank">MySQL</a></li></ul>
-        <ul><li>Server: <a href="http://tomcat.apache.org" target="_blank">Apache Tomcat</a></li></ul>
-        <ul><li>Source Code Management: <a href="https://github.com" target="_blank">GitHub</a></li></ul>
+        <ul><li>Server: <a href="http://tomcat.apache.org" target="_blank">Tomcat</a></li></ul>
+        <ul><li>Source Code Management: <a href="https://github.com" target="_blank">Bitbucket</a></li></ul>
     </div>
 </div>
