@@ -47,7 +47,7 @@ class AppController extends Controller {
     public static $updateThrustCommand = '"c:\Program Files (x86)\Git\bin\git.exe" pull -v --no-rebase --progress "origin" master';
     public static $errorMessage = 'Did you really think you are allowed to see that?';//'Something went wrong! Pleas try again.';
     public static $invalidRequestMessage = 'Did you really think you are allowed to see that? Thanks to SANJAY for protecting all the URLs ;-)';
-    public static $unsupportedBrowser = 'We are sorry, But IE is not a supported browser, So far we support Firefox, Chrome and Safari.';
+    public static $unsupportedBrowser = 'We are sorry :-( But IE is not a supported browser, So far we support Firefox, Chrome and Safari.';
     public static $SUCCESS = 'success';
     public static $INFO = 'info';
     public static $WARNING = 'warning';

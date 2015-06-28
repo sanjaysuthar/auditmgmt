@@ -142,7 +142,7 @@ class AccessDetailsController extends AppController {
                 'fields' => array('AccessDetail.*','lad.latest_audit_month','lad.latest_audit_year'),
                 'joins'      => array(
                     array(
-                        'table' => 'LATEST_AUDIT_DETAILS',
+                        'table' => 'latest_audit_details',
                         'alias' => 'lad',
                         'type' => 'LEFT',
                         'foreignKey' => false,
@@ -159,7 +159,7 @@ class AccessDetailsController extends AppController {
                 'fields' => array('AccessDetail.*','lad.latest_audit_month','lad.latest_audit_year'),
                 'joins'      => array(
                     array(
-                        'table' => 'LATEST_AUDIT_DETAILS',
+                        'table' => 'latest_audit_details',
                         'alias' => 'lad',
                         'type' => 'LEFT',
                         'foreignKey' => false,
@@ -284,7 +284,7 @@ class AccessDetailsController extends AppController {
             'fields' => array('AccessDetail.*','lad.latest_audit_month','lad.latest_audit_year'),
             'joins'      => array(
                 array(
-                    'table' => 'LATEST_AUDIT_DETAILS',
+                    'table' => 'latest_audit_details',
                     'alias' => 'lad',
                     'type' => 'LEFT',
                     'foreignKey' => false,
