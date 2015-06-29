@@ -11,7 +11,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <!-- Panel Header -->
-        <a href="/<?php echo $root?>/users/add" class="btn btn-success btn-sm pull-right" style="margin-top: -5px;">
+        <a href="/users/add" class="btn btn-success btn-sm pull-right" style="margin-top: -5px;">
             <span class="glyphicon glyphicon-plus"></span> Add
         </a>
         <ul class="legend">

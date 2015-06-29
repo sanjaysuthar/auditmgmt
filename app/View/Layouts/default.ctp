@@ -47,12 +47,12 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		echo $this->fetch('script');
 	?>
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>-->
-    <script src="/<?php echo $root?>/js/jquery.min.js"></script>
-    <script src="/<?php echo $root?>/js/flip.js"></script>
-    <script src="/<?php echo $root?>/js/bootstrap-table.js"></script>
-    <script src="/<?php echo $root?>/js/tableExport.js"></script>
-    <script src="/<?php echo $root?>/js/jquery.base64.js"></script>
-    <script src="/<?php echo $root?>/js/bootstrap-table-export.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/flip.js"></script>
+    <script src="/js/bootstrap-table.js"></script>
+    <script src="/js/tableExport.js"></script>
+    <script src="/js/jquery.base64.js"></script>
+    <script src="/js/bootstrap-table-export.js"></script>
 </head>
 <body>
 <!-- Main Header -->
@@ -71,8 +71,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <img src="/<?php echo $root?>/img/audit-icon-3.png" width="40" height="40" class="pull-left" style="margin-top: 4px"/>
-                <a class="navbar-brand" href="/<?php echo $root?>/accessdetails">&nbsp;&nbsp;<b>THRUST</b> <span class="hidden-xs hidden-sm hidden-md"> : The Audit Management Tool </span>
+                <img src="/img/audit-icon-3.png" width="40" height="40" class="pull-left" style="margin-top: 4px"/>
+                <a class="navbar-brand" href="/accessdetails">&nbsp;&nbsp;<b>THRUST</b> <span class="hidden-xs hidden-sm hidden-md"> : The Audit Management Tool </span>
                     <!-- Print Teams Name for Admin-->
                     <span style="color: lightgreen" class="hidden-xs hidden-sm hidden-md">
                        <?php
@@ -88,18 +88,18 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
                     <?php
                         $user = $this->Session->read("Auth.User");
                         if($user != null){
-                            echo "<li><a href=\"/".$root."/accessdetails/listusers\">Dashboard</a></li>";
+                            echo "<li><a href=\"/accessdetails/listusers\">Dashboard</a></li>";
                             echo $this->element('settings-menu');
                         }
                     ?>
 
-                    <li><a href="/<?php echo $root?>/users/about">About</a></li>
-                    <li><a href="/<?php echo $root?>/users/help">Help</a></li>
+                    <li><a href="/users/about">About</a></li>
+                    <li><a href="/users/help">Help</a></li>
                     <!-- Print Logout Button -->
                     <?php
                         $user = $this->Session->read("Auth.User");
                         if($user != null)
-                            echo "<li><a href=\"/".$root."/users/logout\">Logout</a></li>";
+                            echo "<li><a href=\"/users/logout\">Logout</a></li>";
                     ?>
                 </ul>
             </div>
@@ -111,8 +111,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
-                <li><a href="/<?php echo $root?>/accessdetails">Access Details</a></li><!--class="sidebar-brand"-->
-                <li><a href="/<?php echo $root?>/auditdetails">Audits</a></li>
+                <li><a href="/accessdetails">Access Details</a></li><!--class="sidebar-brand"-->
+                <li><a href="/auditdetails">Audits</a></li>
                 <li><a href="#">Analytics</a></li>
                 <li><a href="#">Export</a></li>
             </ul>
@@ -134,17 +134,17 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         </div>
         <!-- /#page-content-wrapper -->
     </div>
-<!--<?php echo $this->element('sql_dump'); ?>-->
+<?php echo $this->element('sql_dump'); ?>
 <!-- / Main Wrapper for Page -->
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 
-    <script src="/<?php echo $root?>/js/bootstrap.min.js"></script>
-    <script src="/<?php echo $root?>/js/docs.min.js"></script>
-    <script src="/<?php echo $root?>/js/fileinput.js"></script>
-    <script src="/<?php echo $root?>/js/thrust-custom.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/docs.min.js"></script>
+    <script src="/js/fileinput.js"></script>
+    <script src="/js/thrust-custom.js"></script>
     <!-- Toggle menu script for sidebar -->
     <script>
         $("#menu-toggle").click(function(e) {

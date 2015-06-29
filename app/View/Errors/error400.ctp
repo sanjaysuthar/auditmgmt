@@ -26,7 +26,7 @@
         </p>
     </div>
     <div class="col-md-4">
-        <img src="/<?php echo $root?>/img/error-bot.png" alt="error">
+        <img src="/img/error-bot.png" alt="error">
     </div>
 </div>
 <?php

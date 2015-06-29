@@ -11,10 +11,10 @@
 <div class="about">
     <div class="row">
         <div class="col-md-6">
-            <img src="/<?php echo $root?>/img/prabhu.jpg" class="img-thumbnail" width="300" alt="Prabhu Seshadri">
+            <img src="/img/prabhu.jpg" class="img-thumbnail" width="300" alt="Prabhu Seshadri">
         </div>
         <div class="col-md-6">
-            <img src="/<?php echo $root?>/img/sanjay.jpg" class="img-thumbnail" width="300" alt="Sanjay Kumar">
+            <img src="/img/sanjay.jpg" class="img-thumbnail" width="300" alt="Sanjay Kumar">
         </div>
     </div>
 

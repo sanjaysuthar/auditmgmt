@@ -11,7 +11,7 @@
 <!-- Script to put CSS on body and hide the left Nav Menu-->
 <script>
     $(document).ready(function(){
-        $("body").css({"background-image": "url(\"/<?php echo $root?>/img/wall-1.jpg\")", "background-repeat": "no-repeat", "background-size" : "100%"});
+        $("body").css({"background-image": "url(\"/img/wall-1.jpg\")", "background-repeat": "no-repeat", "background-size" : "100%"});
         $("#menu-toggle").trigger( "click" );
         $("#card").flip({
             trigger: 'manual'
@@ -38,7 +38,7 @@
                                 <div class="row">
                                     <div class="center-block">
                                         <img class="profile-img"
-                                             src="/<?php echo $root?>/img/photo-bot.png" alt="">
+                                             src="/img/photo-bot.png" alt="">
                                     </div>
                                 </div>
                                 <div class="row">

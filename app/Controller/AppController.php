@@ -44,7 +44,8 @@ class AppController extends Controller {
 
     public static $ActivateUserStatus = 1;
     public static $DeactivateUserStatus = 0;
-    public static $updateThrustCommand = '"c:\Program Files (x86)\Git\bin\git.exe" pull -v --no-rebase --progress "origin" master';
+    //public static $updateThrustCommand = '"c:\Program Files (x86)\Git\bin\git.exe" pull -v --no-rebase --progress "origin" master';
+    public static $updateThrustCommand = 'git pull -v --no-rebase --progress "origin" master';
     public static $errorMessage = 'Did you really think you are allowed to see that?';//'Something went wrong! Pleas try again.';
     public static $invalidRequestMessage = 'Did you really think you are allowed to see that? Thanks to SANJAY for protecting all the URLs ;-)';
     public static $unsupportedBrowser = 'We are sorry :-( But IE is not a supported browser, So far we support Firefox, Chrome and Safari.';
@@ -85,9 +86,8 @@ class AppController extends Controller {
         $auditStatus = array('Success'=>'Success', 'Failed'=>'Failed');
         $auditMonth = array('1'=>'Jan', '2'=>'Feb', '3'=>'Mar', '4'=>'Apr', '5'=>'May', '6'=>'Jun', '7'=>'Jul', '8'=>'Aug', '9'=>'Sep', '10'=>'Oct', '11'=>'Nov', '12'=>'Dec');
         $auditYear = array('2013'=>'2013', '2014'=>'2014', '2015'=>'2015', '2016'=>'2016', '2017'=>'2017');
-        $root = "auditmgmt";
         $teamList = $this->getTeamDetails();
-        $this->set(compact('root', 'environments', 'accessTypes', 'accessPrivileges', 'sysTypes', 'auditStatus', 'auditMonth', 'auditYear', 'teamList'));
+        $this->set(compact('environments', 'accessTypes', 'accessPrivileges', 'sysTypes', 'auditStatus', 'auditMonth', 'auditYear', 'teamList'));
         $this->checkSupportedBrowsers();
     }
 

@@ -13,7 +13,7 @@
         <!-- Panel Header -->
         <b>Manage Thrust Teams</b>
         (Editing a team is not permitted, alternate is delete and create new team)
-        <a href="/<?php echo $root?>/teams/add" class="btn btn-success btn-sm pull-right" style="margin-top: -5px;">
+        <a href="/teams/add" class="btn btn-success btn-sm pull-right" style="margin-top: -5px;">
             <span class="glyphicon glyphicon-plus"></span> Add
         </a>
         <!-- / Panel Header -->

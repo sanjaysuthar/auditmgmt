@@ -8,4 +8,4 @@
  * @since:	v2.0
  */
  -->
-<META http-equiv="refresh" content="0;URL=/<?php echo $root?>/accessdetails/listusers">
+<META http-equiv="refresh" content="0;URL=/accessdetails/listusers">

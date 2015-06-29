@@ -17,7 +17,7 @@
                 <?php echo $this->Form->input('uploadexcelfile', array('type'=>'file', 'label'=>'Upload Excel')); ?>
             </span>
         <?php echo $this->Form->end(); ?>
-        <a href="/<?php echo $root?>/AuditTemplate.xls" class="btn btn-info btn-sm pull-right btn-header">
+        <a href="/AuditTemplate.xls" class="btn btn-info btn-sm pull-right btn-header">
             <span class="glyphicon glyphicon-download-alt"></span> Excel Template
         </a>
         <!-- / Panel Header -->

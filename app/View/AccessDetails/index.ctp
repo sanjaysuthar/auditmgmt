@@ -11,13 +11,13 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <!-- Panel Header -->
-        <a href="/<?php echo $root?>/AccessDetails/add" class="btn btn-success btn-sm pull-right" style="margin-top: -5px;">
+        <a href="/AccessDetails/add" class="btn btn-success btn-sm pull-right" style="margin-top: -5px;">
             <span class="glyphicon glyphicon-plus"></span> Add
         </a>
-        <a href="/<?php echo $root?>/AccessDetails/autoSuggestItems/20" class="btn btn-info btn-sm pull-right" style="margin-top: -5px; margin-right: 10px;">
+        <a href="/AccessDetails/autoSuggestItems/20" class="btn btn-info btn-sm pull-right" style="margin-top: -5px; margin-right: 10px;">
             <span class="glyphicon glyphicon-tasks"></span> Auto Suggest Items for Audit
         </a>
-        <a href="/<?php echo $root?>/AccessDetails/autoSuggestMembers/20" class="btn btn-danger btn-sm pull-right" style="margin-top: -5px; margin-right: 10px;">
+        <a href="/AccessDetails/autoSuggestMembers/20" class="btn btn-danger btn-sm pull-right" style="margin-top: -5px; margin-right: 10px;">
             <span class="glyphicon glyphicon-tasks"></span> Auto Suggest Team Members
         </a>
 

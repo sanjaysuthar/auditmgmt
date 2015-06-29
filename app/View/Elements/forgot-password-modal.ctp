@@ -21,7 +21,7 @@
                         <div class="row">
                             <div class="center-block">
                                 <img class="profile-img"
-                                     src="/<?php echo $root?>/img/photo-bot.png" alt="">
+                                     src="/img/photo-bot.png" alt="">
                             </div>
                         </div>
                         <div class="row">
